@@ -1,0 +1,44 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+    margin-bottom: 60px;
+    font-family: 'Inter', sans-serif;
+}
+
+h1.title {
+    font-size: 28px;
+    margin: 0;
+}
+
+p.gray {
+    color: gray;
+}
+
+p.description {
+    color: gray;
+    font-size: 14px;
+}
+
+div.inline {
+    display: flex;
+}
+
+div.inline-text {
+    display: flex;
+    align-items: flex-end;
+    gap: 10px;
+    margin: 0;
+}

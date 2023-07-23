@@ -1,0 +1,82 @@
+﻿@page
+@model YaChitay.Pages.BookModel
+
+@{
+    ViewData["Title"] = @Model.Book.Title + " - ЯЧитаю";
+}
+
+<div class="container">
+    <div class="row align-items-start">
+        <div class="col bg-white rounded">
+            <img src="data:image/jpg;base64,@Model.Book.PhotoData" class="shadow rounded" width="450px" height="600px" />
+        </div>
+        <div class="col">
+            <h1 class="title">@Model.Book.Title</h1>
+            <p class="description">Прочитали 135 пользователей</p>
+            <div class="inline-text">
+                <p class="gray">Автор:</p> <p><a href="#">Лев Николаевич Толстой</a></p>
+            </div>
+            <div class="inline-text">
+                <p class="gray">Объем:</p> <p>250 страниц</p>
+            </div>
+            <div class="inline-text">
+                <p class="gray">Жанры:</p>
+                @{
+                    int count = Model.Book.Genres.Count;
+                    int i = 1;
+                    foreach(var genre in Model.Book.Genres)
+                    {
+                        if (i != count)
+                        {
+                            <p>@genre.Name, </p>
+                        }
+                        else
+                        {
+                            <p>@genre.Name</p>
+                        }
+                        i++;
+                    }
+                }
+            </div>
+            <div class="inline-text">
+                <p class="gray">Год написания:</p> <p>@Model.Book.ReleaseDate.Year</p>
+            </div>
+            <div class="inline-text">
+            <p class="gray">Оценка:</p> <p>4.6</p><p class="description">(голосов: 20)</p>
+            </div>
+            <p class="gray">Описание книги:</p>
+            <p class="description">@Model.Book.Description</p>
+        </div>
+        <div class="col shadow bg-white rounded">
+            <br />
+            <button type="button" class="btn btn-light">Прочитал</button>
+            <button type="button" class="btn btn-success">Читаю</button>
+            <button type="button" class="btn btn-light">Буду</button>
+            <button type="button" class="btn btn-light">Перестал</button>
+
+            <br />
+            <br />
+            <div class="form-group">
+                <label for="exampleInputEmail1">Страниц прочитано</label>
+                <div class="inline">
+                    <input type="number" class="form-control" value="0" min="0" max="250">
+                    <button type="button" class="btn btn-light">Сохранить</button>
+                </div>
+                <small id="emailHelp" class="form-text text-muted">На данный момент вы прочитали 0% книги</small>
+            </div>
+
+            <br />
+
+            <p>Ваша оценка: </p>
+            <div class="ratio">
+                <input type="radio" class="star-ratio" name="rt">
+                <input type="radio" class="star-ratio" name="rt">
+                <input type="radio" class="star-ratio" name="rt">
+                <input type="radio" class="star-ratio" name="rt">
+                <input type="radio" class="star-ratio" name="rt">
+            </div>
+
+            <br />
+        </div>
+    </div>
+</div>
