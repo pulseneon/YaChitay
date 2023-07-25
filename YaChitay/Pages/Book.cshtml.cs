@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using YaChitay.Data;
-using YaChitay.Models;
 
 namespace YaChitay.Pages
 {
@@ -12,7 +11,7 @@ namespace YaChitay.Pages
         private readonly ApplicationContext _context;
 
         [BindProperty]
-        public Models.BookModel Book { get; set; }
+        public Entities.Models.BookModel Book { get; set; }
 
         public BookModel(ApplicationContext context)
         {

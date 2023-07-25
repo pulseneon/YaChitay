@@ -6,8 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using YaChitay.Data;
-using YaChitay.Models;
-using YaChitay.Models.Book;
+using YaChitay.Entities.Models;
 
 namespace YaChitay.Pages.Admin.Genres
 {
@@ -15,7 +14,7 @@ namespace YaChitay.Pages.Admin.Genres
     {
         private readonly YaChitay.Data.ApplicationContext _context;
 
-        public CreateModel(YaChitay.Data.ApplicationContext context)
+        public CreateModel(ApplicationContext context)
         {
             _context = context;
         }

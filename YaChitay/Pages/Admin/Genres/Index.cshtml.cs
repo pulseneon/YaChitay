@@ -6,8 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using YaChitay.Data;
-using YaChitay.Models;
-using YaChitay.Models.Book;
+using YaChitay.Entities.Models;
 
 namespace YaChitay.Pages.Admin.Genres
 {

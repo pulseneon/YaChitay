@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace YaChitay.Models
+namespace YaChitay.Entities.Models
 {
     public class BookModel
     {

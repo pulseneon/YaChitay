@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using YaChitay.Data;
 using YaChitay.Entities.Models;
 
-namespace YaChitay.Pages.Admin.Genres
+namespace YaChitay.Pages.Admin.Authors
 {
     public class DetailsModel : PageModel
     {
@@ -19,23 +19,23 @@ namespace YaChitay.Pages.Admin.Genres
             _context = context;
         }
 
-      public GenreModel Genre { get; set; } = default!; 
+      public AuthorModel AuthorModel { get; set; } = default!; 
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-            if (id == null || _context.Genre == null)
+            if (id == null || _context.Author == null)
             {
                 return NotFound();
             }
 
-            var genre = await _context.Genre.FirstOrDefaultAsync(m => m.Id == id);
-            if (genre == null)
+            var authormodel = await _context.Author.FirstOrDefaultAsync(m => m.Id == id);
+            if (authormodel == null)
             {
                 return NotFound();
             }
             else 
             {
-                Genre = genre;
+                AuthorModel = authormodel;
             }
             return Page();
         }

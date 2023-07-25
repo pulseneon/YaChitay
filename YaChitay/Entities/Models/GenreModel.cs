@@ -1,4 +1,4 @@
-﻿namespace YaChitay.Models
+﻿namespace YaChitay.Entities.Models
 {
     public class GenreModel
     {

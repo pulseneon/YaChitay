@@ -22,7 +22,7 @@ namespace YaChitay.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("BookGenre", b =>
+            modelBuilder.Entity("BookModelGenreModel", b =>
                 {
                     b.Property<int>("BooksId")
                         .HasColumnType("int");
@@ -34,10 +34,69 @@ namespace YaChitay.Migrations
 
                     b.HasIndex("GenresId");
 
-                    b.ToTable("BookGenre");
+                    b.ToTable("BookModelGenreModel");
                 });
 
-            modelBuilder.Entity("YaChitay.Models.Book.Book", b =>
+            modelBuilder.Entity("YaChitay.Entities.Models.AuthorModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Birthplace")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("BookModelId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DateOfBirth")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DateOfDeath")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDead")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Nickname")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Patronymic")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhotoData")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Surname")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BookModelId");
+
+                    b.ToTable("Author");
+                });
+
+            modelBuilder.Entity("YaChitay.Entities.Models.BookModel", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -62,6 +121,15 @@ namespace YaChitay.Migrations
                     b.Property<DateTime>("ReleaseDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("Score")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ScoreVotes")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Size")
+                        .HasColumnType("int");
+
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -71,7 +139,7 @@ namespace YaChitay.Migrations
                     b.ToTable("Book");
                 });
 
-            modelBuilder.Entity("YaChitay.Models.Book.Genre", b =>
+            modelBuilder.Entity("YaChitay.Entities.Models.GenreModel", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -88,19 +156,31 @@ namespace YaChitay.Migrations
                     b.ToTable("Genre");
                 });
 
-            modelBuilder.Entity("BookGenre", b =>
+            modelBuilder.Entity("BookModelGenreModel", b =>
                 {
-                    b.HasOne("YaChitay.Models.Book.Book", null)
+                    b.HasOne("YaChitay.Entities.Models.BookModel", null)
                         .WithMany()
                         .HasForeignKey("BooksId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("YaChitay.Models.Book.Genre", null)
+                    b.HasOne("YaChitay.Entities.Models.GenreModel", null)
                         .WithMany()
                         .HasForeignKey("GenresId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("YaChitay.Entities.Models.AuthorModel", b =>
+                {
+                    b.HasOne("YaChitay.Entities.Models.BookModel", null)
+                        .WithMany("Author")
+                        .HasForeignKey("BookModelId");
+                });
+
+            modelBuilder.Entity("YaChitay.Entities.Models.BookModel", b =>
+                {
+                    b.Navigation("Author");
                 });
 #pragma warning restore 612, 618
         }

@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using YaChitay.Data;
-using YaChitay.Models;
 
 namespace YaChitay.Pages.Admin.Books
 {
@@ -20,7 +19,7 @@ namespace YaChitay.Pages.Admin.Books
         }
 
         [BindProperty]
-      public Models.BookModel Book { get; set; } = default!;
+      public Entities.Models.BookModel Book { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {

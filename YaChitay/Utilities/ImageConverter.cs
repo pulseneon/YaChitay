@@ -1,6 +1,6 @@
 ﻿namespace YaChitay.Services
 {
-    public class ImageUtility
+    public class ImageConverter
     {
         static public string? ImageToString(IFormFile photo)
         {

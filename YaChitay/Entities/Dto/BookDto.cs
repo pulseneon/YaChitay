@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace YaChitay.Models.Book
+namespace YaChitay.Entities.DTO
 {
     [NotMapped]
     public class BookDTO

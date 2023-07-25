@@ -6,25 +6,26 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using YaChitay.Data;
+using YaChitay.Entities.Models;
 
-namespace YaChitay.Pages.Admin.Books
+namespace YaChitay.Pages.Admin.Authors
 {
     public class IndexModel : PageModel
     {
-        private readonly YaChitay.Data.ApplicationContext _context;
+        private readonly ApplicationContext _context;
 
-        public IndexModel(YaChitay.Data.ApplicationContext context)
+        public IndexModel(ApplicationContext context)
         {
             _context = context;
         }
 
-        public IList<Entities.Models.BookModel> Book { get;set; } = default!;
+        public IList<AuthorModel> AuthorModel { get;set; } = default!;
 
         public async Task OnGetAsync()
         {
-            if (_context.Book != null)
+            if (_context.Author != null)
             {
-                Book = await _context.Book.ToListAsync();
+                AuthorModel = await _context.Author.ToListAsync();
             }
         }
     }

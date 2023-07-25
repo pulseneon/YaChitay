@@ -1,20 +1,21 @@
-﻿using AutoMapper;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using YaChitay.Data;
 using YaChitay.Entities.DTO;
-using YaChitay.Services;
 using YaChitay.Services.Service;
-using static Azure.Core.HttpHeader;
 
-namespace YaChitay.Pages.Admin.Books
+namespace YaChitay.Pages.Admin.Authors
 {
     public class CreateModel : PageModel
     {
-        private readonly BooksService _service;
+        private readonly AuthorsService _service;
 
-        public CreateModel(BooksService service)
+        public CreateModel(AuthorsService service)
         {
             _service = service;
         }
@@ -25,18 +26,18 @@ namespace YaChitay.Pages.Admin.Books
         }
 
         [BindProperty]
-        public BookDTO Model { get; set; } = default!;
-
+        public AuthorDTO Model { get; set; } = default!;
+        
         public async Task<IActionResult> OnPostAsync()
         {
-            if (!ModelState.IsValid || Model is null || Model.Photo is null)
+            if (!ModelState.IsValid || Model == null)
             {
                 return Page();
             }
 
-            await _service.AddBook(Model);
+            var result = await _service.AddAuthor(Model);
 
-            return RedirectToPage("./Index");   
+            return RedirectToPage("./Index");
         }
     }
 }
