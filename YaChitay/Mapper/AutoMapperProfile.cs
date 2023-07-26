@@ -8,7 +8,9 @@ namespace YaChitay.Mapper
     {
         public AutoMapperProfile()
         {
-            CreateMap<BookDTO, BookModel>().ForMember(x => x.Genres, opt => opt.Ignore());
+            CreateMap<BookDTO, BookModel>()
+                .ForMember(x => x.Genres, opt => opt.Ignore())
+                .ForMember(x => x.Author, opt => opt.Ignore());
             CreateMap<AuthorDTO, AuthorModel>().ForMember(x => x.PhotoData, opt => opt.Ignore());
         }
     }

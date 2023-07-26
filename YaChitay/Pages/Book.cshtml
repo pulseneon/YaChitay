@@ -14,10 +14,20 @@
             <h1 class="title">@Model.Book.Title</h1>
             <p class="description">Прочитали 135 пользователей</p>
             <div class="inline-text">
-                <p class="gray">Автор:</p> <p><a href="#">Лев Николаевич Толстой</a></p>
+                <p class="gray">Автор:</p> <p>
+                    @{
+                        foreach(var author in Model.Book.Author)
+                        {
+                            var fullname = String.Format("{0} {1} {2}", author.Name, author.Patronymic, author.Surname);
+                            <a href="#">
+                                @fullname
+                            </a>
+                        }
+                }
+                </p>
             </div>
             <div class="inline-text">
-                <p class="gray">Объем:</p> <p>250 страниц</p>
+                <p class="gray">Объем:</p> <p>@Model.Book.Size страниц</p>
             </div>
             <div class="inline-text">
                 <p class="gray">Жанры:</p>
@@ -42,7 +52,20 @@
                 <p class="gray">Год написания:</p> <p>@Model.Book.ReleaseDate.Year</p>
             </div>
             <div class="inline-text">
-            <p class="gray">Оценка:</p> <p>4.6</p><p class="description">(голосов: 20)</p>
+                <p class="gray">Оценка:</p> @{
+                    var middleScore = 0;
+                    var isVoted = (Model.Book.ScoreVotes != 0);
+                    if (isVoted)
+                    {
+                        middleScore = Model.Book.Score / Model.Book.ScoreVotes;
+                        <p>@middleScore</p>
+                        <p class="description">(голосов: @Model.Book.ScoreVotes)</p>
+                    }
+                    else
+                    {
+                        <p>Никто еще не оценил книгу</p>
+                    }
+                }
             </div>
             <p class="gray">Описание книги:</p>
             <p class="description">@Model.Book.Description</p>
@@ -59,7 +82,7 @@
             <div class="form-group">
                 <label for="exampleInputEmail1">Страниц прочитано</label>
                 <div class="inline">
-                    <input type="number" class="form-control" value="0" min="0" max="250">
+                    <input type="number" class="form-control" value="0" min="0" max="@Model.Book.Size">
                     <button type="button" class="btn btn-light">Сохранить</button>
                 </div>
                 <small id="emailHelp" class="form-text text-muted">На данный момент вы прочитали 0% книги</small>

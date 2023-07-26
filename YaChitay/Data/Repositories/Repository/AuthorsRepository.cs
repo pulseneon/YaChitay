@@ -41,6 +41,6 @@ namespace YaChitay.Entities.Repository
 
         public async Task<AuthorModel> GetAuthor(string name, string patronymic, string surname) => await _context.Author.FirstOrDefaultAsync(x => x.Name == name && x.Patronymic == patronymic && x.Surname == surname);
 
-        public async Task<AuthorModel> GetAuthor(string fullname) => await _context.Author.FirstOrDefaultAsync(x => string.Format("{0} {1} {2}", x.Name, x.Patronymic, x.Surname).Equals(fullname));
+        public async Task<AuthorModel> GetAuthor(string fullname) => await _context.Author.FirstOrDefaultAsync(x => (x.Name + " " + x.Patronymic + " " + x.Surname) == fullname);
     }
 }

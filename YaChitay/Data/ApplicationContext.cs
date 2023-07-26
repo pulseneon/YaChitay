@@ -16,7 +16,6 @@ namespace YaChitay.Data
 
         public DbSet<BookModel> Book { get; set; } = default!;
         public DbSet<AuthorModel> Author { get; set; } = default!;
-
         public DbSet<GenreModel>? Genre { get; set; }
 
 

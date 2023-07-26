@@ -35,9 +35,7 @@ namespace YaChitay.Pages.Admin.Authors
                 return Page();
             }
 
-            var result = await _service.AddAuthor(Model);
-
-            return RedirectToPage("./Index");
+            return (await _service.AddAuthor(Model)) ? RedirectToPage("./Index") : Page();
         }
     }
 }

@@ -16,6 +16,7 @@ builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
 
 builder.Services.AddScoped<IAuthorsRepository, AuthorsRepository>();
 builder.Services.AddScoped<IBooksRepository, BooksRepository>();
+builder.Services.AddScoped<IGenresRepository, GenresRepository>();
 
 builder.Services.AddScoped<AuthorsService>();
 builder.Services.AddScoped<BooksService>();
