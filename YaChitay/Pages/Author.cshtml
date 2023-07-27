@@ -1,0 +1,8 @@
+﻿@page "{id:int?}"
+@model YaChitay.Pages.AuthorModel
+@{
+    var initials = @Model.Author.Name[0] + ". " + @Model.Author.Patronymic[0] + ". " + Model.Author.Surname;
+    ViewData["Title"] = @initials + " - ЯЧитаю";
+}
+
+<h1>Автор</h1>

@@ -2,7 +2,7 @@
 
 namespace YaChitay.Entities.Models
 {
-    public class AuthorModel
+    public class Author
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -22,7 +22,7 @@ namespace YaChitay.Entities.Models
         [DataType(DataType.Date)]
         public DateTime Created { get; set; }
 
-        public AuthorModel()
+        public Author()
         {
             Created = DateTime.UtcNow;
             IsDeleted = false;

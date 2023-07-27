@@ -1,10 +1,56 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "ЯЧитаю";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container">
+    <div class="row">
+        <div class="col-md-10">
+            
+            <h1>ЯЧитаю</h1>
+
+            <p>
+                ЯЧитаю - веб-приложение для отслеживания прогресса чтения ваших любимых книг. Сотни жанров, тысячи книг.
+                Получайте рекомендации на основе прочитанных произведений и повышайте свой уровень читателя за счет чтения
+                любых романов
+            </p>
+            
+
+            <h1>Популярное сегодня</h1>
+            @{
+                int rows = 2;
+                int col = 5;
+                int counter = 0;
+
+                for (int i = 0; i < rows; i++)
+                {
+                    <div class="row">
+                        @for (int j = 0; j < col; j++)
+                        {
+                            <div class="col">
+                                @{ if(@Model.Book.Count-1 >= counter){
+                                        <div class="shadow rounded-3 text-center">
+                                            <img src="data:image/jpg;base64,@Model.Book[counter].PhotoData" class="shadow rounded" width="150px" height="200px" />
+                                            <h5>@Model.Book[counter].Title</h5>
+                                        </div>
+                                }
+                                }
+                            </div>
+                            counter++;
+                        }
+                    </div>
+                    counter++;
+                }
+            }
+        </div>
+        <div class="col-md-2">
+            <div class="rounded shadow">
+                <p><a href="#">Профиль</a></p>
+                <p><a href="#">Книги</a></p>
+                <p><a href="#">Авторы</a></p>
+                <p><a href="#">Жанры</a></p>
+            </div>
+        </div>
+    </div>
 </div>

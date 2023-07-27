@@ -23,7 +23,7 @@ namespace YaChitay.Services.Service
         {
             if (model is null || model.DateOfBirth > model.DateOfDeath) return false;
 
-            var author = _mapper.Map<AuthorModel>(model);
+            var author = _mapper.Map<Author>(model);
             
             if (model.Photo != null)
             {

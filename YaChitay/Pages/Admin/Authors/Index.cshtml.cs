@@ -19,7 +19,7 @@ namespace YaChitay.Pages.Admin.Authors
             _context = context;
         }
 
-        public IList<AuthorModel> AuthorModel { get;set; } = default!;
+        public IList<Author> AuthorModel { get;set; } = default!;
 
         public async Task OnGetAsync()
         {

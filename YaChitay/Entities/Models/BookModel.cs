@@ -11,7 +11,7 @@ namespace YaChitay.Entities.Models
         public int Size { get; set; }
         public int Score { get; set; }
         public int ScoreVotes { get; set; }
-        public List<AuthorModel> Author { get; set; } = new();
+        public List<Author> Author { get; set; } = new();
         public List<GenreModel> Genres { get; set; } = new();
 
         [DataType(DataType.Date)]
