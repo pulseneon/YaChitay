@@ -2,7 +2,7 @@
 
 namespace YaChitay.Entities.Models
 {
-    public class BookModel
+    public class Book
     {
         public int Id { get; set; }
         public string Title { get; set; }
@@ -21,7 +21,7 @@ namespace YaChitay.Entities.Models
         public DateTime Created { get; set; }
         public bool IsDeleted { get; set; }
 
-        public BookModel()
+        public Book()
         {
             Created = DateTime.Now;
             Score = 0;

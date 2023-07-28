@@ -1,30 +1,41 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
-using YaChitay.Data;
+﻿using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Identity.Client;
+using YaChitay.Entities;
+using YaChitay.Entities.Models;
+using YaChitay.Services.Service;
 
 namespace YaChitay.Pages
 {
     public class IndexModel : PageModel
     {
         private readonly ILogger<IndexModel> _logger;
-        private readonly YaChitay.Data.ApplicationContext _context;
+        private readonly BooksService _service;
+        private readonly SelectionBooksCache _cache;
 
-        public IndexModel(ILogger<IndexModel> logger, ApplicationContext context)
+        public IndexModel(ILogger<IndexModel> logger, BooksService service, SelectionBooksCache cache)
         {
-            _context = context;
+            _service = service;
             _logger = logger;
+            _cache = cache;
         }
 
-
-        public IList<Entities.Models.BookModel> Book { get; set; } = default!;
+        public List<Book> NewBooks { get; set; } = default!;
+        public List<Book> PopularBooks { get; set; } = default!;
+        public List<Book> SelectionBooks { get; set; } = default!;
 
         public async Task OnGetAsync()
         {
-            if (_context.Book != null)
-            {
-                Book = await _context.Book.ToListAsync();
-            }
+            int colums = 5;
+
+            NewBooks = new List<Book>();
+
+            //NewBooks = await _service.GetNewBooks(colums);
+            //PopularBooks = await _service.GetPopularBooks(colums);
+            //SelectionBooks = _cache.BooksOfDay;
+            //if (_context.Book != null)
+            //{
+            //    Book = await _context.Book.ToListAsync();
+            //}
         }
     }
 }

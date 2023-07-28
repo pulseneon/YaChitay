@@ -3,19 +3,20 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using YaChitay.Data;
+using YaChitay.Services.Service;
 
 namespace YaChitay.Pages
 {
     public class BookModel : PageModel
     {
-        private readonly ApplicationContext _context;
+        private readonly BooksService _service;
 
         [BindProperty]
-        public Entities.Models.BookModel Book { get; set; }
+        public Entities.Models.Book Book { get; set; }
 
-        public BookModel(ApplicationContext context)
+        public BookModel(BooksService service)
         {
-            _context = context;
+            _service = service;
         }
 
         public async Task<IActionResult> OnGet(int? id)
@@ -26,9 +27,9 @@ namespace YaChitay.Pages
             }
 
             //Book = await _context.Book.FindAsync(id);
-            Book = await _context.Book.Include(x => x.Genres)
-                .Include(x => x.Author)
-                .FirstOrDefaultAsync(x => x.Id == id);
+            //Book = await _context.Book.Include(x => x.Genres)
+            //    .Include(x => x.Author)
+            //    .FirstOrDefaultAsync(x => x.Id == id);
 
             if (Book is null || Book.IsDeleted)
             {

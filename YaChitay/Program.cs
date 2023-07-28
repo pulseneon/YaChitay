@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using YaChitay.Data;
 using YaChitay.Data.Repositories.Interface;
 using YaChitay.Data.Repositories.Repository;
+using YaChitay.Entities;
 using YaChitay.Entities.Repository;
 using YaChitay.Mapper;
 using YaChitay.Services.Interface;
@@ -21,8 +22,10 @@ builder.Services.AddScoped<IGenresRepository, GenresRepository>();
 builder.Services.AddScoped<AuthorsService>();
 builder.Services.AddScoped<BooksService>();
 
-var app = builder.Build();
+builder.Services.AddSingleton<SelectionBooksCache>();
+builder.Services.AddHostedService<SelectionBooksService>();
 
+var app = builder.Build();
 
 if (!app.Environment.IsDevelopment())
 {

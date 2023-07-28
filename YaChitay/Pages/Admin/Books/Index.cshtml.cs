@@ -1,31 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
+﻿using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using YaChitay.Data;
+using YaChitay.Services.Service;
 
 namespace YaChitay.Pages.Admin.Books
 {
     public class IndexModel : PageModel
     {
-        private readonly YaChitay.Data.ApplicationContext _context;
+        private readonly BooksService _service;
 
-        public IndexModel(YaChitay.Data.ApplicationContext context)
+        public IndexModel(BooksService service)
         {
-            _context = context;
+            _service = service;
         }
 
-        public IList<Entities.Models.BookModel> Book { get;set; } = default!;
+        public IList<Entities.Models.Book> Book { get;set; } = default!;
 
         public async Task OnGetAsync()
         {
-            if (_context.Book != null)
-            {
-                Book = await _context.Book.ToListAsync();
-            }
+            //if (_context.Book != null)
+            //{
+            //    Book = await _context.Book.ToListAsync();
+            //}
         }
     }
 }

@@ -29,7 +29,7 @@ namespace YaChitay.Services.Service
 
             if (model is null) return false;
 
-            var book = _mapper.Map<BookModel>(model);
+            var book = _mapper.Map<Book>(model);
             var image = ImageConverter.ImageToString(model.Photo);
             book.PhotoData = image;
 
@@ -45,10 +45,38 @@ namespace YaChitay.Services.Service
             return await _repository.AddBook(book);
         }
 
-        // todo: think more about logic
+        public async Task<List<Book>> GetAllBooks()
+        {
+            return await _repository.GetAllBooks();
+        }
+
+        public Task<Book> GetBook(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<List<Book>> GetNewBooks(int amount)
+        {
+            int count = 20; // число запрашиваемых для рандома новых книг
+            var books = await _repository.GetNewBooks(amount);
+            // todo: зарандомить всю эту богодельню
+
+            return books.Take(amount).ToList();
+        }
+
+        public async Task<List<Book>> GetPopularBooks(int amount)
+        {
+            int count = 20; // число запрашиваемых для рандома новых книг
+            var books = await _repository.GetPopularBooks(amount);
+            // todo: зарандомить всю эту богодельню
+
+            return books.Take(amount).ToList();
+        }
+
+        // todo: переписать
         private async Task<List<GenreModel>> SplitGenres(string genres)
         {
-            /* we get genres separated by semicolons and return a list of models */
+            /* разделяем по разделителю и ищем их модели */
             var genresArray = genres.Split(';');
             return await _genresRepository.GetGenresByName(genresArray);
         }

@@ -15,7 +15,7 @@ namespace YaChitay.Pages.Admin.Books
         }
 
         [BindProperty]
-        public Entities.Models.BookModel Book { get; set; } = default!;
+        public Entities.Models.Book Book { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
