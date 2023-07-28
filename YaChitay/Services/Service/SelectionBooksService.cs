@@ -1,4 +1,6 @@
-﻿using YaChitay.Data.Repositories.Repository;
+﻿using System.Configuration;
+using YaChitay.Data.Repositories.Interface;
+using YaChitay.Data.Repositories.Repository;
 using YaChitay.Entities;
 using YaChitay.Entities.Models;
 
@@ -6,29 +8,37 @@ namespace YaChitay.Services.Service
 {
     public class SelectionBooksService: BackgroundService
     {
-        //private readonly BooksRepository _repository;
-        // private readonly ILogger _logger;
-        //private readonly SelectionBooksCache _cache;
+        private readonly ILogger _logger;
+        private readonly IServiceProvider _serviceProvider;
+        private readonly SelectionBooksCache _cache;
+        private readonly IConfiguration _configuration;
 
-        public SelectionBooksService() // BooksRepository repository, 
-        { // ILogger logger
-            //_repository = repository; // SelectionBooksCache cache
-            // _logger = logger;
-            // _cache = cache;
+        public SelectionBooksService(IConfiguration configuration, IServiceProvider serviceProvider, SelectionBooksCache cache,
+            ILogger<SelectionBooksService> logger)
+        {
+            _configuration = configuration;
+            _serviceProvider = serviceProvider;
+            _cache = cache;
+            _logger = logger;
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            while (stoppingToken.IsCancellationRequested)
+            var booksOptions = _configuration.GetSection("Layout:IndexPage");
+            int booksCount = booksOptions.GetValue<int>("ShelfRows");
+            int mixingSize = booksOptions.GetValue<int>("MixingSize");
+
+            while (!stoppingToken.IsCancellationRequested)
             {
-                // todo: заменить число константой 
-                // todo: настроить и переписать эту богодельню
-                int booksCount = 5;
-                //List<Book> books = (await _repository.GetSelectionBooks(100)).Take(booksCount).ToList();
-                Console.WriteLine("test");
-                // _cache.SetBooks(books);
-                // _logger.LogInformation("Have been updated in the background {booksCount} selection books", booksCount);
-                await Task.Delay(TimeSpan.FromSeconds(5), stoppingToken);
+                using (var scope = _serviceProvider.CreateScope())
+                {
+                    var service = scope.ServiceProvider.GetRequiredService<IBooksRepository>();
+                    var books = await service.GetSelectionBooks(mixingSize);
+                    _cache.SetBooks(books.Take(booksCount).ToList());
+                }
+
+                _logger.LogInformation("Have been updated in the background {booksCount} selection books", booksCount);
+                await Task.Delay(TimeSpan.FromHours(12), stoppingToken).ConfigureAwait(false);
             }
         }
     }
