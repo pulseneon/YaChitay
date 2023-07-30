@@ -2,21 +2,19 @@
 
 namespace YaChitay.Entities.Models
 {
-    public class Book
+    public class Book: BaseEntity
     {
-        public int Id { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
-        public string PhotoData { get; set; }
-        public int Size { get; set; }
+        public int? ImageId { get; set; }
+        public BookImage? Image { get; set; }
+        public int NumberOfPages { get; set; }
         public int Score { get; set; }
         public int ScoreVotes { get; set; }
-        public List<Author> Author { get; set; } = new();
-        public List<GenreModel> Genres { get; set; } = new();
-
+        public List<Author> Authors { get; set; } = new();
+        public List<Genre> Genres { get; set; } = new();
         [DataType(DataType.Date)]
         public DateTime ReleaseDate { get; set; }
-
         [DataType(DataType.Date)]
         public DateTime Created { get; set; }
         public bool IsDeleted { get; set; }

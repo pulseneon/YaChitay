@@ -17,32 +17,20 @@
             </p>
             
 
-            <h1>Популярное сегодня</h1>
-            @{
-                int rows = 2;
-                int col = 5;
-                int counter = 0;
-
-                for (int i = 0; i < rows; i++)
-                {
-                    <div class="row">
-                        @for (int j = 0; j < col; j++)
-                        {
-                            <div class="col">
-                                @{ if(@Model.NewBooks.Count-1 >= counter){
-                                        <div class="shadow rounded-3 text-center">
-                                            <img src="data:image/jpg;base64,@Model.NewBooks[counter].PhotoData" class="shadow rounded" width="150px" height="200px" />
-                                            <h5>@Model.NewBooks[counter].Title</h5>
-                                        </div>
-                                }
-                                }
-                            </div>
-                            counter++;
-                        }
-                    </div>
-                    counter++;
-                }
-            }
+            <h1>Новинки<h1>
+            <h1>Популярное<h1>
+            <h1>Книги дня</h1>
+                            <div class="row">
+                            @{
+                                //foreach(var book in Model.SelectionBooks)
+                                //{
+                                //        <div class="col">
+                                //            <img src="data:image/jpg;base64, @book.Image.ImageData" width="150px" height="200px" />
+                                //            <h5>@book.Title</h5>
+                                //        </div>
+                                //}
+                            }
+                                <div class="row">
         </div>
         <div class="col-md-2">
             <div class="rounded shadow">

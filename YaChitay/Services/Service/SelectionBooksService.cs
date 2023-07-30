@@ -1,7 +1,7 @@
 ﻿using System.Configuration;
 using YaChitay.Data.Repositories.Interface;
 using YaChitay.Data.Repositories.Repository;
-using YaChitay.Entities;
+using YaChitay.Entities.Cache;
 using YaChitay.Entities.Models;
 
 namespace YaChitay.Services.Service
@@ -33,7 +33,7 @@ namespace YaChitay.Services.Service
                 using (var scope = _serviceProvider.CreateScope())
                 {
                     var service = scope.ServiceProvider.GetRequiredService<IBooksRepository>();
-                    var books = await service.GetSelectionBooks(mixingSize);
+                    var books = await service.GetSelectionBooksAsync(mixingSize);
                     _cache.SetBooks(books.Take(booksCount).ToList());
                 }
 

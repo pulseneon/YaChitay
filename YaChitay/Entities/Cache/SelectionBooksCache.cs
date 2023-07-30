@@ -1,6 +1,6 @@
 ﻿using YaChitay.Entities.Models;
 
-namespace YaChitay.Entities
+namespace YaChitay.Entities.Cache
 {
     public class SelectionBooksCache
     {

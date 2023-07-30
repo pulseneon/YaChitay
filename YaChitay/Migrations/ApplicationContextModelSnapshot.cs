@@ -22,7 +22,7 @@ namespace YaChitay.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("BookModelGenreModel", b =>
+            modelBuilder.Entity("BookGenre", b =>
                 {
                     b.Property<int>("BooksId")
                         .HasColumnType("int");
@@ -34,10 +34,10 @@ namespace YaChitay.Migrations
 
                     b.HasIndex("GenresId");
 
-                    b.ToTable("BookModelGenreModel");
+                    b.ToTable("BookGenre");
                 });
 
-            modelBuilder.Entity("YaChitay.Entities.Models.AuthorModel", b =>
+            modelBuilder.Entity("YaChitay.Entities.Models.Author", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -49,7 +49,7 @@ namespace YaChitay.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("BookModelId")
+                    b.Property<int?>("BookId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("Created")
@@ -91,12 +91,12 @@ namespace YaChitay.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BookModelId");
+                    b.HasIndex("BookId");
 
                     b.ToTable("Author");
                 });
 
-            modelBuilder.Entity("YaChitay.Entities.Models.BookModel", b =>
+            modelBuilder.Entity("YaChitay.Entities.Models.Book", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -111,12 +111,14 @@ namespace YaChitay.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("ImageId")
+                        .HasColumnType("int");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<string>("PhotoData")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("NumberOfPages")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("ReleaseDate")
                         .HasColumnType("datetime2");
@@ -127,19 +129,37 @@ namespace YaChitay.Migrations
                     b.Property<int>("ScoreVotes")
                         .HasColumnType("int");
 
-                    b.Property<int>("Size")
-                        .HasColumnType("int");
-
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ImageId")
+                        .IsUnique()
+                        .HasFilter("[ImageId] IS NOT NULL");
+
                     b.ToTable("Book");
                 });
 
-            modelBuilder.Entity("YaChitay.Entities.Models.GenreModel", b =>
+            modelBuilder.Entity("YaChitay.Entities.Models.BookImage", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ImageData")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("BookImage");
+                });
+
+            modelBuilder.Entity("YaChitay.Entities.Models.Genre", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -156,31 +176,46 @@ namespace YaChitay.Migrations
                     b.ToTable("Genre");
                 });
 
-            modelBuilder.Entity("BookModelGenreModel", b =>
+            modelBuilder.Entity("BookGenre", b =>
                 {
-                    b.HasOne("YaChitay.Entities.Models.BookModel", null)
+                    b.HasOne("YaChitay.Entities.Models.Book", null)
                         .WithMany()
                         .HasForeignKey("BooksId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("YaChitay.Entities.Models.GenreModel", null)
+                    b.HasOne("YaChitay.Entities.Models.Genre", null)
                         .WithMany()
                         .HasForeignKey("GenresId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("YaChitay.Entities.Models.AuthorModel", b =>
+            modelBuilder.Entity("YaChitay.Entities.Models.Author", b =>
                 {
-                    b.HasOne("YaChitay.Entities.Models.BookModel", null)
-                        .WithMany("Author")
-                        .HasForeignKey("BookModelId");
+                    b.HasOne("YaChitay.Entities.Models.Book", null)
+                        .WithMany("Authors")
+                        .HasForeignKey("BookId");
                 });
 
-            modelBuilder.Entity("YaChitay.Entities.Models.BookModel", b =>
+            modelBuilder.Entity("YaChitay.Entities.Models.Book", b =>
                 {
-                    b.Navigation("Author");
+                    b.HasOne("YaChitay.Entities.Models.BookImage", "Image")
+                        .WithOne("Book")
+                        .HasForeignKey("YaChitay.Entities.Models.Book", "ImageId");
+
+                    b.Navigation("Image");
+                });
+
+            modelBuilder.Entity("YaChitay.Entities.Models.Book", b =>
+                {
+                    b.Navigation("Authors");
+                });
+
+            modelBuilder.Entity("YaChitay.Entities.Models.BookImage", b =>
+                {
+                    b.Navigation("Book")
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

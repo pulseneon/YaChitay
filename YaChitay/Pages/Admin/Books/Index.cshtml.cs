@@ -17,10 +17,7 @@ namespace YaChitay.Pages.Admin.Books
 
         public async Task OnGetAsync()
         {
-            //if (_context.Book != null)
-            //{
-            //    Book = await _context.Book.ToListAsync();
-            //}
+            Book = await _service.GetAllBooksAsync();
         }
     }
 }

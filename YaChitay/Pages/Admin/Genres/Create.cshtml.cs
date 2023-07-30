@@ -25,7 +25,7 @@ namespace YaChitay.Pages.Admin.Genres
         }
 
         [BindProperty]
-        public GenreModel Genre { get; set; } = default!;
+        public Genre Genre { get; set; } = default!;
         
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD

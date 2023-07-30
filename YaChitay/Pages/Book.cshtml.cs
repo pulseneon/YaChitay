@@ -26,6 +26,7 @@ namespace YaChitay.Pages
                 return RedirectToPage("./Index");
             }
 
+            Book = await _service.GetBookAsync((int)id);
             //Book = await _context.Book.FindAsync(id);
             //Book = await _context.Book.Include(x => x.Genres)
             //    .Include(x => x.Author)

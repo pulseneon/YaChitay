@@ -5,10 +5,10 @@ namespace YaChitay.Services.Interface
 {
     public interface IBooksService
     {
-        Task<bool> AddBook(BookDTO model);
-        Task<Book> GetBook(int id);
-        Task<List<Book>> GetAllBooks();
-        Task<List<Book>> GetNewBooks(int amount);
-        Task<List<Book>> GetPopularBooks(int amount);
+        Task<bool> AddBookAsync(BookDTO model);
+        Task<Book> GetBookAsync(int id);
+        Task<List<Book>> GetAllBooksAsync();
+        Task<List<Book>> GetNewBooksAsync(int amount);
+        Task<List<Book>> GetPopularBooksAsync(int amount);
     }
 }

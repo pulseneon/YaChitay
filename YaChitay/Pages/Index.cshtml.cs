@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Identity.Client;
-using YaChitay.Entities;
+using YaChitay.Entities.Cache;
 using YaChitay.Entities.Models;
 using YaChitay.Services.Service;
 
@@ -27,11 +27,12 @@ namespace YaChitay.Pages
         {
             int colums = 5;
 
-            NewBooks = new List<Book>();
+            //NewBooks = new List<Book>();
 
             //NewBooks = await _service.GetNewBooks(colums);
             //PopularBooks = await _service.GetPopularBooks(colums);
-            //SelectionBooks = _cache.BooksOfDay;
+            SelectionBooks = _cache.BooksOfDay;
+            //Console.WriteLine(SelectionBooks.Count);
             //if (_context.Book != null)
             //{
             //    Book = await _context.Book.ToListAsync();

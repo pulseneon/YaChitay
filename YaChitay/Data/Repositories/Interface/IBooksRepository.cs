@@ -4,10 +4,11 @@ namespace YaChitay.Data.Repositories.Interface
 {
     public interface IBooksRepository
     {
-        Task<bool> AddBook(Book model);
-        Task<List<Book>> GetAllBooks();
-        Task<List<Book>> GetNewBooks(int amount);
-        Task<List<Book>> GetPopularBooks(int amount);
-        Task<List<Book>> GetSelectionBooks(int amount);
+        Task<bool> AddBookAsync(Book model);
+        Task<Book> GetBookAsync(int id);
+        Task<List<Book>> GetAllBooksAsync();
+        Task<List<Book>> GetNewBooksAsync(int amount);
+        Task<List<Book>> GetPopularBooksAsync(int amount);
+        Task<List<Book>> GetSelectionBooksAsync(int amount);
     }
 }

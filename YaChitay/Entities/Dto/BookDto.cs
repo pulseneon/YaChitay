@@ -24,7 +24,7 @@ namespace YaChitay.Entities.DTO
 
         [Required]
         [Display(Name = "Количество страниц")]
-        public int Size { get; set; }
+        public int NumberOfPages { get; set; }
 
         [Required]
         [Display(Name = "Описание")]

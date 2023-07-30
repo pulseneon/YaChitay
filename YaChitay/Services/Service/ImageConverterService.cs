@@ -1,6 +1,6 @@
-﻿namespace YaChitay.Services
+﻿namespace YaChitay.Services.Service
 {
-    public class ImageConverter
+    public class ImageConverterService
     {
         static public string? ImageToString(IFormFile photo)
         {
@@ -11,7 +11,7 @@
             {
                 using (BinaryReader br = new BinaryReader(fs))
                 {
-                    bytes = br.ReadBytes((Int32)fs.Length);
+                    bytes = br.ReadBytes((int)fs.Length);
                 }
             }
 

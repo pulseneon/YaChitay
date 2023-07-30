@@ -1,12 +1,7 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
-using YaChitay.Data;
 using YaChitay.Entities.DTO;
-using YaChitay.Services;
 using YaChitay.Services.Service;
-using static Azure.Core.HttpHeader;
 
 namespace YaChitay.Pages.Admin.Books
 {
@@ -34,7 +29,7 @@ namespace YaChitay.Pages.Admin.Books
                 return Page();
             }
 
-            await _service.AddBook(Model);
+            await _service.AddBookAsync(Model);
 
             return RedirectToPage("./Index");   
         }

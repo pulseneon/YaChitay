@@ -12,26 +12,31 @@ namespace YaChitay.Services.Service
         private readonly IBooksRepository _repository;
         private readonly IGenresRepository _genresRepository;
         private readonly IAuthorsRepository _authorsRepository;
+        private readonly IBookImagesRepository _bookImagesRepository;
         private readonly IMapper _mapper;
 
         public BooksService(IBooksRepository repository, IMapper mapper, IGenresRepository genresRepository,
-            IAuthorsRepository authorsRepository)
+            IAuthorsRepository authorsRepository, IBookImagesRepository bookImagesRepository)
         {
             _repository = repository;
             _mapper = mapper;
             _genresRepository = genresRepository;
             _authorsRepository = authorsRepository;
+            _bookImagesRepository = bookImagesRepository;
         }
 
-        public async Task<bool> AddBook(BookDTO model)
+        public async Task<bool> AddBookAsync(BookDTO model)
         {
             // todo: implement many authors
 
             if (model is null) return false;
 
             var book = _mapper.Map<Book>(model);
-            var image = ImageConverter.ImageToString(model.Photo);
-            book.PhotoData = image;
+            var image = ImageConverterService.ImageToString(model.Photo);
+
+            BookImage bookImage = new(image);
+            await _bookImagesRepository.AddPhotoAsync(bookImage);
+            book.Image = bookImage;
 
             // adding book genres 
             var genresList = await SplitGenres(model.Genres);
@@ -40,41 +45,38 @@ namespace YaChitay.Services.Service
             // finding author
             var author = await _authorsRepository.GetAuthor(model.Author);
             if (author is null) return false;
-            book.Author.Add(author);
+            book.Authors.Add(author);
 
-            return await _repository.AddBook(book);
+            return await _repository.AddBookAsync(book);
         }
 
-        public async Task<List<Book>> GetAllBooks()
+        public async Task<List<Book>> GetAllBooksAsync()
         {
-            return await _repository.GetAllBooks();
+            return await _repository.GetAllBooksAsync();
         }
 
-        public Task<Book> GetBook(int id)
-        {
-            throw new NotImplementedException();
-        }
+        public async Task<Book> GetBookAsync(int id) => await _repository.GetBookAsync(id);
 
-        public async Task<List<Book>> GetNewBooks(int amount)
+        public async Task<List<Book>> GetNewBooksAsync(int amount)
         {
             int count = 20; // число запрашиваемых для рандома новых книг
-            var books = await _repository.GetNewBooks(amount);
+            var books = await _repository.GetNewBooksAsync(amount);
             // todo: зарандомить всю эту богодельню
 
             return books.Take(amount).ToList();
         }
 
-        public async Task<List<Book>> GetPopularBooks(int amount)
+        public async Task<List<Book>> GetPopularBooksAsync(int amount)
         {
             int count = 20; // число запрашиваемых для рандома новых книг
-            var books = await _repository.GetPopularBooks(amount);
+            var books = await _repository.GetPopularBooksAsync(amount);
             // todo: зарандомить всю эту богодельню
 
             return books.Take(amount).ToList();
         }
 
         // todo: переписать
-        private async Task<List<GenreModel>> SplitGenres(string genres)
+        private async Task<List<Genre>> SplitGenres(string genres)
         {
             /* разделяем по разделителю и ищем их модели */
             var genresArray = genres.Split(';');

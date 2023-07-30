@@ -19,7 +19,7 @@ namespace YaChitay.Pages.Admin.Genres
             _context = context;
         }
 
-        public IList<GenreModel> Genre { get;set; } = default!;
+        public IList<Genre> Genre { get;set; } = default!;
 
         public async Task OnGetAsync()
         {

@@ -27,7 +27,7 @@ namespace YaChitay.Services.Service
             
             if (model.Photo != null)
             {
-                var photo = ImageConverter.ImageToString(model.Photo);
+                var photo = ImageConverterService.ImageToString(model.Photo);
                 author.PhotoData = photo;
             }
 

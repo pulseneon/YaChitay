@@ -16,7 +16,7 @@ namespace YaChitay.Data.Repositories.Repository
             _mapper = mapper;
         }
 
-        public async Task<bool> AddBook(Book model)
+        public async Task<bool> AddBookAsync(Book model)
         {
             try
             {
@@ -30,12 +30,17 @@ namespace YaChitay.Data.Repositories.Repository
             }
         }
 
-        public async Task<List<Book>> GetAllBooks() => await _context.Book.ToListAsync();
+        public async Task<List<Book>> GetAllBooksAsync() => await _context.Book.ToListAsync();
 
-        public async Task<List<Book>> GetNewBooks(int amount) => await _context.Book.OrderByDescending(x => x.ReleaseDate).Take(amount).ToListAsync();
+        public async Task<Book> GetBookAsync(int id) => await _context.Book.Include(x => x.Genres)
+            .Include(x => x.Authors)
+            .Include(x => x.Image)
+            .FirstOrDefaultAsync(x => x.Id == id);
 
-        public async Task<List<Book>> GetPopularBooks(int amount) => await _context.Book.OrderByDescending(x => x.Score).Take(amount).ToListAsync();
+        public async Task<List<Book>> GetNewBooksAsync(int amount) => await _context.Book.OrderByDescending(x => x.ReleaseDate).Take(amount).ToListAsync();
 
-        public async Task<List<Book>> GetSelectionBooks(int amount) => await _context.Book.Where(x => x.Score/x.ScoreVotes > 4).Take(amount).ToListAsync();
+        public async Task<List<Book>> GetPopularBooksAsync(int amount) => await _context.Book.OrderByDescending(x => x.Score).Take(amount).ToListAsync();
+
+        public async Task<List<Book>> GetSelectionBooksAsync(int amount) => await _context.Book.Where(x => x.Score > 0 && x.Score/x.ScoreVotes > 4).Take(amount).ToListAsync();
     }
 }
