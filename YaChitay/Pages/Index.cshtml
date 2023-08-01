@@ -4,11 +4,15 @@
     ViewData["Title"] = "ЯЧитаю";
 }
 
+<head>
+    <link rel="stylesheet" href="~/css/index.css" asp-append-version="true" />
+</head>
+
 <div class="container">
     <div class="row">
         <div class="col-md-10">
             
-            <h1>ЯЧитаю</h1>
+            <h2>ЯЧитаю</h2>
 
             <p>
                 ЯЧитаю - веб-приложение для отслеживания прогресса чтения ваших любимых книг. Сотни жанров, тысячи книг.
@@ -17,27 +21,28 @@
             </p>
             
 
-            <h1>Новинки<h1>
-            <h1>Популярное<h1>
-            <h1>Книги дня</h1>
+            <h2>Новинки</h2>
+            <h2>Популярное</h2>
+            <h2>Книги дня</h2>
                             <div class="row">
                             @{
-                                //foreach(var book in Model.SelectionBooks)
-                                //{
-                                //        <div class="col">
-                                //            <img src="data:image/jpg;base64, @book.Image.ImageData" width="150px" height="200px" />
-                                //            <h5>@book.Title</h5>
-                                //        </div>
-                                //}
+                                foreach(var book in Model.SelectionBooks)
+                                {
+                                        <div class="col">
+                                                <img class="book-img" src="data:image/jpg;base64, @book.Image.ImageData"/>
+                                                <p class="book-title">@book.Title</p>
+                                                <p class="book-desc">@book.Genres[0].Name, @book.ReleaseDate.Year</p>
+                                        </div>
+                                        }
                             }
-                                <div class="row">
+            </div>
         </div>
         <div class="col-md-2">
-            <div class="rounded shadow">
-                <p><a href="#">Профиль</a></p>
-                <p><a href="#">Книги</a></p>
-                <p><a href="#">Авторы</a></p>
-                <p><a href="#">Жанры</a></p>
+            <div class="border" style="position:fixed;padding:56px;">
+                <p><a class="sidebar" href="#">Профиль</a></p>
+                <p><a class="sidebar" href="#">Книги</a></p>
+                <p><a class="sidebar" href="#">Авторы</a></p>
+                <p><a class="sidebar" href="#">Жанры</a></p>
             </div>
         </div>
     </div>

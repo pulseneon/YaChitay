@@ -12,6 +12,6 @@ namespace YaChitay.Data.Repositories.Repository
             _context = context;
         }
 
-        public async Task<List<Genre>> GetGenresByName(string[] genresNames) => await _context.Genre.Where(g => genresNames.Contains(g.Name)).ToListAsync();
+        public async Task<List<Genre>> GetGenresByNameAsync(string[] genresNames) => await _context.Genre.Where(g => genresNames.Contains(g.Name)).ToListAsync();
     }
 }

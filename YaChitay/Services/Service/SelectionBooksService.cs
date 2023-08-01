@@ -34,10 +34,14 @@ namespace YaChitay.Services.Service
                 {
                     var service = scope.ServiceProvider.GetRequiredService<IBooksRepository>();
                     var books = await service.GetSelectionBooksAsync(mixingSize);
+
+                    var random = new Random();
+                    books = books.OrderBy(x => random.Next()).ToList();
                     _cache.SetBooks(books.Take(booksCount).ToList());
                 }
 
-                _logger.LogInformation("Have been updated in the background {booksCount} selection books", booksCount);
+                _logger.LogInformation("Have been updated in the background selection books: {0} ({1} of {2})", _cache.GetBooksNames(),
+                    _cache.BooksOfDay.Count, booksCount);
                 await Task.Delay(TimeSpan.FromHours(12), stoppingToken).ConfigureAwait(false);
             }
         }

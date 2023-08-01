@@ -4,6 +4,6 @@ namespace YaChitay.Data.Repositories.Interface
 {
     public interface IGenresRepository
     {
-        Task<List<Genre>> GetGenresByName(string[] genresNames);
+        Task<List<Genre>> GetGenresByNameAsync(string[] genresNames);
     }
 }

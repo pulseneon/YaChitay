@@ -1,0 +1,33 @@
+﻿p.book-title {
+    font-weight: bold;
+    margin-bottom: 0px;
+}
+
+p.book-desc {
+    color: gray;
+    font-weight: lighter;
+    margin-top: 0px;
+    font-size: 12px;
+}
+
+img.book-img {
+    transition: 1s;
+    display: block;
+    width: 150px;
+    height: 200px;
+}
+
+img.book-img:hover {
+  transform: scale(1.05);
+}
+
+a.sidebar {
+    color: gray;
+    font-weight: bold;
+    text-decoration: none;
+    margin-bottom:8px;
+}
+
+    a.sidebar:hover {
+        color: #22a6b3;
+    }

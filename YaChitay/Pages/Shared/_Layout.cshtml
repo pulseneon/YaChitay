@@ -11,28 +11,40 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@40,700,0,0" />
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-black border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-page="/Index">ЯЧитаю</a>
+                <a class="logo" asp-area="" asp-page="/Index">ЯЧитаю</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-end">
+                <div class="justify-content-end">
+                <div class="navbar-collapse collapse d-sm-inline-flex">
+                    <div class="search-box">
+                        <button class="btn-search">
+                            <span class="material-symbols-outlined">
+                                search
+                            </span>
+                        </button>
+                        <input type="text" class="input-search" placeholder="Давайте найдем">
+                    </div>
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Index">Книги</a>
+                            <a class="nav-link text-white" asp-area="" asp-page="/Index">Книги</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Admin/Index">Авторы</a>
+                            <a class="nav-link text-white" asp-area="" asp-page="/Admin/Index">Авторы</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Войти</a>
+                            <a class="nav-link text-white" asp-area="" asp-page="/Privacy">Войти</a>
                         </li>
                     </ul>
+                </div>
                 </div>
             </div>
         </nav>
@@ -45,7 +57,8 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2023 - YaChitay - <a asp-area="" asp-page="/Privacy">Privacy</a>
+            &copy; 2023 - ЯЧитаю - <a asp-area="" asp-page="/Contacts">Контакты</a>
+            <a asp-area="" asp-page="/Suggest">Предложить свою книгу</a>
         </div>
     </footer>
 

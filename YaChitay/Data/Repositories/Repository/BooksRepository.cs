@@ -37,10 +37,16 @@ namespace YaChitay.Data.Repositories.Repository
             .Include(x => x.Image)
             .FirstOrDefaultAsync(x => x.Id == id);
 
-        public async Task<List<Book>> GetNewBooksAsync(int amount) => await _context.Book.OrderByDescending(x => x.ReleaseDate).Take(amount).ToListAsync();
+        public async Task<List<Book>> GetNewBooksAsync(int amount) => await _context.Book.OrderByDescending(x => x.ReleaseDate).Include(x => x.Genres)
+            .Include(x => x.Authors)
+            .Include(x => x.Image).Take(amount).ToListAsync();
 
-        public async Task<List<Book>> GetPopularBooksAsync(int amount) => await _context.Book.OrderByDescending(x => x.Score).Take(amount).ToListAsync();
+        public async Task<List<Book>> GetPopularBooksAsync(int amount) => await _context.Book.OrderByDescending(x => x.Score).Include(x => x.Genres)
+            .Include(x => x.Authors)
+            .Include(x => x.Image).Take(amount).ToListAsync();
 
-        public async Task<List<Book>> GetSelectionBooksAsync(int amount) => await _context.Book.Where(x => x.Score > 0 && x.Score/x.ScoreVotes > 4).Take(amount).ToListAsync();
+        public async Task<List<Book>> GetSelectionBooksAsync(int amount) => await _context.Book.Include(x => x.Genres)
+            .Include(x => x.Authors)
+            .Include(x => x.Image).Where(x => x.Score > 0 && x.Score/x.ScoreVotes > 4).Take(amount).ToListAsync();
     }
 }

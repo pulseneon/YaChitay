@@ -5,6 +5,7 @@ namespace YaChitay.Entities.Models
     public class Book: BaseEntity
     {
         public string Title { get; set; }
+        // public string OrigTitle { get; set; }
         public string Description { get; set; }
         public int? ImageId { get; set; }
         public BookImage? Image { get; set; }

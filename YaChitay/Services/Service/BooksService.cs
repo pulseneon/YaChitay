@@ -80,7 +80,7 @@ namespace YaChitay.Services.Service
         {
             /* разделяем по разделителю и ищем их модели */
             var genresArray = genres.Split(';');
-            return await _genresRepository.GetGenresByName(genresArray);
+            return await _genresRepository.GetGenresByNameAsync(genresArray);
         }
     }
 }

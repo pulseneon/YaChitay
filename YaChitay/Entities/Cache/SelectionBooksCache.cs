@@ -10,5 +10,11 @@ namespace YaChitay.Entities.Cache
         {
             BooksOfDay = books;
         }
+
+        public string GetBooksNames()
+        {
+            var titles = BooksOfDay.Select(book => book.Title).ToArray();
+            return string.Join(",", titles);
+        }
     }
 }
