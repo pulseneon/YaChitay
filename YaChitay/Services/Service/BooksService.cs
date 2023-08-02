@@ -14,8 +14,9 @@ namespace YaChitay.Services.Service
         private readonly IAuthorsRepository _authorsRepository;
         private readonly IBookImagesRepository _bookImagesRepository;
         private readonly IMapper _mapper;
+        private readonly int BooksCount;
 
-        public BooksService(IBooksRepository repository, IMapper mapper, IGenresRepository genresRepository,
+        public BooksService(IConfiguration configuration, IBooksRepository repository, IMapper mapper, IGenresRepository genresRepository,
             IAuthorsRepository authorsRepository, IBookImagesRepository bookImagesRepository)
         {
             _repository = repository;
@@ -23,6 +24,9 @@ namespace YaChitay.Services.Service
             _genresRepository = genresRepository;
             _authorsRepository = authorsRepository;
             _bookImagesRepository = bookImagesRepository;
+
+            var booksOptions = configuration.GetSection("Layout:IndexPage");
+            BooksCount = booksOptions.GetValue<int>("ShelfRows");
         }
 
         public async Task<bool> AddBookAsync(BookDTO model)
@@ -59,18 +63,18 @@ namespace YaChitay.Services.Service
 
         public async Task<List<Book>> GetNewBooksAsync(int amount)
         {
-            int count = 20; // число запрашиваемых для рандома новых книг
-            var books = await _repository.GetNewBooksAsync(amount);
-            // todo: зарандомить всю эту богодельню
+            var random = new Random();
+
+            var books = await _repository.GetNewBooksAsync(BooksCount);
+            books = books.OrderBy(x => random.Next()).ToList();
 
             return books.Take(amount).ToList();
         }
 
         public async Task<List<Book>> GetPopularBooksAsync(int amount)
         {
-            int count = 20; // число запрашиваемых для рандома новых книг
-            var books = await _repository.GetPopularBooksAsync(amount);
-            // todo: зарандомить всю эту богодельню
+            var random = new Random();
+            var books = await _repository.GetPopularBooksAsync(BooksCount);
 
             return books.Take(amount).ToList();
         }

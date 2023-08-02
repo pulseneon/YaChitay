@@ -22,19 +22,43 @@
             
 
             <h2>Новинки</h2>
+            <div class="row">
+                @{
+                    foreach (var book in Model.NewBooks)
+                    {
+                        <div class="col">
+                            <img OnClick="Reddirect(@book.Id)" class="book-img" src="data:image/jpg;base64, @book.Image.ImageData" />
+                            <p class="book-title">@book.Title</p>
+                            <p class="book-desc">@book.Genres[0].Name, @book.ReleaseDate.Year</p>
+                        </div>
+                    }
+                }
+            </div>
             <h2>Популярное</h2>
+            <div class="row">
+                @{
+                    foreach (var book in Model.PopularBooks)
+                    {
+                        <div class="col">
+                            <img OnClick="Reddirect(@book.Id)" class="book-img" src="data:image/jpg;base64, @book.Image.ImageData" />
+                            <p class="book-title">@book.Title</p>
+                            <p class="book-desc">@book.Genres[0].Name, @book.ReleaseDate.Year</p>
+                        </div>
+                    }
+                }
+            </div>
             <h2>Книги дня</h2>
-                            <div class="row">
-                            @{
-                                foreach(var book in Model.SelectionBooks)
-                                {
-                                        <div class="col">
-                                                <img class="book-img" src="data:image/jpg;base64, @book.Image.ImageData"/>
-                                                <p class="book-title">@book.Title</p>
-                                                <p class="book-desc">@book.Genres[0].Name, @book.ReleaseDate.Year</p>
-                                        </div>
-                                        }
-                            }
+            <div class="row">
+                @{
+                    foreach (var book in Model.SelectionBooks)
+                    {
+                        <div class="col">
+                            <img OnClick="Reddirect(@book.Id)" class="book-img" src="data:image/jpg;base64, @book.Image.ImageData" />
+                            <p class="book-title">@book.Title</p>
+                            <p class="book-desc">@book.Genres[0].Name, @book.ReleaseDate.Year</p>
+                        </div>
+                    }
+                }
             </div>
         </div>
         <div class="col-md-2">
@@ -47,3 +71,15 @@
         </div>
     </div>
 </div>
+
+@section Scripts
+    {
+    <script>
+        console.log("sda");
+
+        function Reddirect(id) {
+            window.location.href = '/book/' + id
+        }
+
+    </script>
+}

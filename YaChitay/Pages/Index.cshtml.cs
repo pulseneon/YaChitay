@@ -32,17 +32,9 @@ namespace YaChitay.Pages
             var booksOptions = _config.GetSection("Layout:IndexPage");
             BooksCount = booksOptions.GetValue<int>("ShelfRows");
 
-
-            //NewBooks = new List<Book>();
-
             NewBooks = await _service.GetNewBooksAsync(BooksCount);
-            //PopularBooks = await _service.GetPopularBooks(colums);
+            PopularBooks = await _service.GetPopularBooksAsync(BooksCount);
             SelectionBooks = _cache.BooksOfDay;
-            //Console.WriteLine(SelectionBooks.Count);
-            //if (_context.Book != null)
-            //{
-            //    Book = await _context.Book.ToListAsync();
-            //}
         }
     }
 }
