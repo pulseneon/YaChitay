@@ -31,7 +31,7 @@
             </div>
             <div class="inline-text">
                 <p class="gray">Жанры:</p>
-                    @string.Join(", ", Model.Book.Genres.Select(x => x.Name));
+                    @string.Join(", ", Model.Book.Genres.Select(x => x.Name))
             </div>
             <div class="inline-text">
                 <p class="gray">Год написания:</p> <p>@Model.Book.ReleaseDate.Year</p>

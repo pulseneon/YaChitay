@@ -51,9 +51,7 @@ div.inline {
 
 div.inline-text {
     display: flex;
-    align-items: flex-end;
     gap: 10px;
-    margin: 0;
 }
 
 .search-box {

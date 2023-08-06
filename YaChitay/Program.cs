@@ -1,5 +1,4 @@
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
 using YaChitay.Data;
 using YaChitay.Data.Repositories.Interface;
 using YaChitay.Data.Repositories.Repository;
@@ -11,6 +10,7 @@ using YaChitay.Services.Service;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddRazorPages();
+builder.Services.AddLogging();
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddApiVersioning();
