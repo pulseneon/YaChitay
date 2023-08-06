@@ -2,18 +2,18 @@
 
 namespace YaChitay.Entities.Cache
 {
-    public class SelectionBooksCache
+    public class NewBooksCache
     {
-        public List<Book> BooksOfDay { get; private set; }
+        public List<Book> Books { get; private set; }
 
         public void SetBooks(List<Book> books)
         {
-            BooksOfDay = books;
+            Books = books;
         }
 
         public string GetBooksNames()
         {
-            var titles = BooksOfDay.Select(book => book.Title).ToArray();
+            var titles = Books.Select(book => book.Title).ToArray();
             return string.Join(",", titles);
         }
     }

@@ -1,20 +1,17 @@
-﻿using System.Configuration;
-using YaChitay.Data.Repositories.Interface;
-using YaChitay.Data.Repositories.Repository;
+﻿using YaChitay.Data.Repositories.Interface;
 using YaChitay.Entities.Cache;
-using YaChitay.Entities.Models;
 
 namespace YaChitay.Services.Service
 {
-    public class SelectionBooksService: BackgroundService
+    public class UpdateNewBooksService: BackgroundService
     {
         private readonly ILogger _logger;
         private readonly IServiceProvider _serviceProvider;
-        private readonly SelectionBooksCache _cache;
+        private readonly NewBooksCache _cache;
         private readonly IConfiguration _configuration;
 
-        public SelectionBooksService(IConfiguration configuration, IServiceProvider serviceProvider, SelectionBooksCache cache,
-            ILogger<SelectionBooksService> logger)
+        public UpdateNewBooksService(IConfiguration configuration, IServiceProvider serviceProvider, NewBooksCache cache,
+            ILogger<UpdateBooksOfDayService> logger)
         {
             _configuration = configuration;
             _serviceProvider = serviceProvider;
@@ -33,15 +30,15 @@ namespace YaChitay.Services.Service
                 using (var scope = _serviceProvider.CreateScope())
                 {
                     var service = scope.ServiceProvider.GetRequiredService<IBooksRepository>();
-                    var books = await service.GetSelectionBooksAsync(mixingSize);
+                    var books = await service.GetNewBooksAsync(mixingSize);
 
                     var random = new Random();
                     books = books.OrderBy(x => random.Next()).ToList();
                     _cache.SetBooks(books.Take(booksCount).ToList());
                 }
 
-                _logger.LogInformation("Have been updated in the background selection books: {0} ({1} of {2})", _cache.GetBooksNames(),
-                    _cache.BooksOfDay.Count, booksCount);
+                _logger.LogInformation("Have been updated in the background new books: {0} ({1} of {2})", _cache.GetBooksNames(),
+                    _cache.Books.Count, booksCount);
                 await Task.Delay(TimeSpan.FromHours(12), stoppingToken).ConfigureAwait(false);
             }
         }

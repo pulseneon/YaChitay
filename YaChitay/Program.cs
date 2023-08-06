@@ -26,8 +26,10 @@ builder.Services.AddScoped<IGenresRepository, GenresRepository>();
 builder.Services.AddScoped<AuthorsService>();
 builder.Services.AddScoped<BooksService>();
 
-builder.Services.AddSingleton<SelectionBooksCache>();
-builder.Services.AddHostedService<SelectionBooksService>();
+builder.Services.AddSingleton<BooksOfDayCache>();
+builder.Services.AddSingleton<NewBooksCache>();
+builder.Services.AddHostedService<UpdateBooksOfDayService>();
+builder.Services.AddHostedService<UpdateNewBooksService>();
 
 var app = builder.Build();
 
