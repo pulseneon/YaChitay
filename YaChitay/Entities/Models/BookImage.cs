@@ -1,17 +1,23 @@
-﻿namespace YaChitay.Entities.Models
+﻿using YaChitay.Utilities;
+
+namespace YaChitay.Entities.Models
 {
     public class BookImage: BaseEntity
     {
-        public string ImageData { get; set; }
-        public Book Book { get; set; }
+        public string Thumbnail { get; set; } // 150x200px
+        public string Low { get; set; } // 450x580px
+        public string Original { get; set; } // оригинальный размер фото
 
-        public BookImage()
-        {
-        }
+        public BookImage() { }
 
-        public BookImage(string image)
+        public BookImage(IFormFile imageFile)
         {
-            ImageData = image;
+            var thumbnailBitmap = ImageResizerUtility.ResizeIFormFile(imageFile, 150, 200);
+            var lowBitmap = ImageResizerUtility.ResizeIFormFile(imageFile, 450, 580);
+
+            Thumbnail = ImageConverterUtility.ImageToBase64String(thumbnailBitmap);
+            Low = ImageConverterUtility.ImageToBase64String(lowBitmap);
+            Original = ImageConverterUtility.ImageToBase64String(imageFile);
         } 
     }
 }

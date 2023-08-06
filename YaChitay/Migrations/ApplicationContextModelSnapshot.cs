@@ -135,9 +135,7 @@ namespace YaChitay.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ImageId")
-                        .IsUnique()
-                        .HasFilter("[ImageId] IS NOT NULL");
+                    b.HasIndex("ImageId");
 
                     b.ToTable("Book");
                 });
@@ -150,7 +148,15 @@ namespace YaChitay.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("ImageData")
+                    b.Property<string>("Low")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Original")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Thumbnail")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -201,8 +207,8 @@ namespace YaChitay.Migrations
             modelBuilder.Entity("YaChitay.Entities.Models.Book", b =>
                 {
                     b.HasOne("YaChitay.Entities.Models.BookImage", "Image")
-                        .WithOne("Book")
-                        .HasForeignKey("YaChitay.Entities.Models.Book", "ImageId");
+                        .WithMany()
+                        .HasForeignKey("ImageId");
 
                     b.Navigation("Image");
                 });
@@ -210,12 +216,6 @@ namespace YaChitay.Migrations
             modelBuilder.Entity("YaChitay.Entities.Models.Book", b =>
                 {
                     b.Navigation("Authors");
-                });
-
-            modelBuilder.Entity("YaChitay.Entities.Models.BookImage", b =>
-                {
-                    b.Navigation("Book")
-                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

@@ -28,8 +28,10 @@ builder.Services.AddScoped<BooksService>();
 
 builder.Services.AddSingleton<BooksOfDayCache>();
 builder.Services.AddSingleton<NewBooksCache>();
+builder.Services.AddSingleton<PopularBooksCache>();
 builder.Services.AddHostedService<UpdateBooksOfDayService>();
 builder.Services.AddHostedService<UpdateNewBooksService>();
+builder.Services.AddHostedService<UpdatePopularBooksService>();
 
 var app = builder.Build();
 

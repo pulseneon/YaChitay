@@ -1,10 +1,9 @@
 ﻿using AutoMapper;
-using Microsoft.EntityFrameworkCore;
-using YaChitay.Data;
 using YaChitay.Data.Repositories.Interface;
 using YaChitay.Entities.DTO;
 using YaChitay.Entities.Models;
 using YaChitay.Services.Interface;
+using YaChitay.Utilities;
 
 namespace YaChitay.Services.Service
 {
@@ -21,13 +20,15 @@ namespace YaChitay.Services.Service
 
         public async Task<bool> AddAuthor(AuthorDTO model)
         {
+            // todo: вынести фотографию автора в отдельную таблицу бд
+
             if (model is null || model.DateOfBirth > model.DateOfDeath) return false;
 
             var author = _mapper.Map<Author>(model);
             
             if (model.Photo != null)
             {
-                var photo = ImageConverterService.ImageToString(model.Photo);
+                var photo = ImageConverterUtility.ImageToBase64String(model.Photo);
                 author.PhotoData = photo;
             }
 

@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Microsoft.EntityFrameworkCore;
 using YaChitay.Data.Repositories.Interface;
 using YaChitay.Entities.DTO;
 using YaChitay.Entities.Models;
@@ -31,22 +30,21 @@ namespace YaChitay.Services.Service
 
         public async Task<bool> AddBookAsync(BookDTO model)
         {
-            // todo: implement many authors
+            // todo: реализовать многоавторство
 
             if (model is null) return false;
 
             var book = _mapper.Map<Book>(model);
-            var image = ImageConverterService.ImageToString(model.Photo);
 
-            BookImage bookImage = new(image);
+            // загрузка фотографии
+            BookImage bookImage = new(model.Photo);
             await _bookImagesRepository.AddPhotoAsync(bookImage);
             book.Image = bookImage;
 
-            // adding book genres 
-            var genresList = await SplitGenres(model.Genres);
-            book.Genres.AddRange(genresList);
+            // добавление жанров
+            book.Genres.AddRange(await SplitGenres(model.Genres));
 
-            // finding author
+            // нахождение и добавление автора
             var author = await _authorsRepository.GetAuthor(model.Author);
             if (author is null) return false;
             book.Authors.Add(author);
