@@ -51,7 +51,7 @@ namespace YaChitay.Api.v1.Controllers
                 return NotFound();
             }
 
-            var photo = new PhotoDto(book.Image.Id, book.Image.ImageData);
+            var photo = new PhotoDto(book.Image.Id, book.Image.Original);
             _logger.LogInformation($"API response returned {photo}");
 
             return Ok(photo);

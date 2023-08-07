@@ -12,14 +12,19 @@ namespace YaChitay.Pages
         private readonly ILogger<IndexModel> _logger;
         private readonly IConfiguration _config;
         private readonly BooksService _service;
-        private readonly SelectionBooksCache _cache;
+        private readonly BooksOfDayCache _selectionBooksCache;
+        private readonly NewBooksCache _newBooksCache;
+        private readonly PopularBooksCache _popularBooksCache;
 
-        public IndexModel(ILogger<IndexModel> logger, BooksService service, IConfiguration configuration, SelectionBooksCache cache)
+        public IndexModel(ILogger<IndexModel> logger, BooksService service, IConfiguration configuration, BooksOfDayCache selectionCache,
+            NewBooksCache newBooksCache, PopularBooksCache popularBooksCache)
         {
             _service = service;
             _logger = logger;
             _config = configuration;
-            _cache = cache;
+            _selectionBooksCache = selectionCache;
+            _newBooksCache = newBooksCache;
+            _popularBooksCache = popularBooksCache;
         }
 
         public List<Book> NewBooks { get; set; } = default!;
@@ -32,9 +37,9 @@ namespace YaChitay.Pages
             var booksOptions = _config.GetSection("Layout:IndexPage");
             BooksCount = booksOptions.GetValue<int>("ShelfRows");
 
-            //NewBooks = await _service.GetNewBooksAsync(BooksCount);
-            //PopularBooks = await _service.GetPopularBooksAsync(BooksCount);
-            SelectionBooks = _cache.BooksOfDay;
+            NewBooks = _newBooksCache.Books;
+            PopularBooks = _popularBooksCache.Books;
+            SelectionBooks = _selectionBooksCache.Books;
         }
     }
 }

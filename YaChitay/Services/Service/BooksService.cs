@@ -49,6 +49,12 @@ namespace YaChitay.Services.Service
             if (author is null) return false;
             book.Authors.Add(author);
 
+            // тестовое добавление 30 книг
+            for(int i = 0; i < 30; i++)
+            {
+                _repository.AddBookAsync(book);
+            }
+
             return await _repository.AddBookAsync(book);
         }
 
