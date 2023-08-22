@@ -8,15 +8,17 @@ namespace YaChitay.Services.Service
 {
     public class AuthorsService : IAuthorsService
     {
+        private readonly IWebHostEnvironment _env;
         private readonly IAuthorsRepository _repository;
         private readonly IAuthorImagesRepository _imagesRepo;
         private readonly IMapper _mapper;
 
-        public AuthorsService(IAuthorsRepository repository, IAuthorImagesRepository imagesRepository, IMapper mapper)
+        public AuthorsService(IAuthorsRepository repository, IAuthorImagesRepository imagesRepository, IMapper mapper, IWebHostEnvironment env)
         {
             _repository = repository;
             _imagesRepo = imagesRepository;
             _mapper = mapper;
+            _env = env;
         }
 
         public async Task<bool> AddAuthorAsync(AuthorRequestDto model)
@@ -24,13 +26,10 @@ namespace YaChitay.Services.Service
             if (model is null || model.DateOfBirth > model.DateOfDeath && model.IsDead) return false;
 
             var author = _mapper.Map<Author>(model);
-            
-            if (model.Photo != null)
-            {
-                AuthorImage authorImage = new(model.Photo);
-                await _imagesRepo.AddPhotoAsync(authorImage);
-                author.Image = authorImage;
-            }
+
+            AuthorImage authorImage = (model.Photo != null) ? new(model.Photo) : new(Path.Combine(_env.WebRootPath, "images", "author.png"));
+            await _imagesRepo.AddPhotoAsync(authorImage);
+            author.Image = authorImage;
 
             return await _repository.AddAuthorAsync(author);
         }
