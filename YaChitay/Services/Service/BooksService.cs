@@ -28,7 +28,7 @@ namespace YaChitay.Services.Service
             BooksCount = booksOptions.GetValue<int>("ShelfRows");
         }
 
-        public async Task<bool> AddBookAsync(BookDTO model)
+        public async Task<bool> AddBookAsync(BookRequestDto model)
         {
             // todo: реализовать многоавторство
 
@@ -45,15 +45,9 @@ namespace YaChitay.Services.Service
             book.Genres.AddRange(await SplitGenres(model.Genres));
 
             // нахождение и добавление автора
-            var author = await _authorsRepository.GetAuthor(model.Author);
+            var author = await _authorsRepository.GetAuthorAsync(model.Author);
             if (author is null) return false;
             book.Authors.Add(author);
-
-            // тестовое добавление 30 книг
-            for(int i = 0; i < 30; i++)
-            {
-                _repository.AddBookAsync(book);
-            }
 
             return await _repository.AddBookAsync(book);
         }

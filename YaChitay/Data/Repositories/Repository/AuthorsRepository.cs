@@ -18,7 +18,7 @@ namespace YaChitay.Entities.Repository
             _mapper = mapper;
         }
 
-        public async Task<bool> AddAuthor(Author model)
+        public async Task<bool> AddAuthorAsync(Author model)
         {
             try
             {
@@ -33,14 +33,18 @@ namespace YaChitay.Entities.Repository
             }
         }
 
-        public async Task<Author> GetAuthor(int id) => await _context.Author.FirstOrDefaultAsync(x => x.Id == id);
+        public async Task<Author> GetAuthorAsync(int id) => await _context.Author
+            .Include(x => x.Books).ThenInclude(x => x.Genres)
+            .Include(x => x.Image)
+            .AsNoTracking().
+            FirstOrDefaultAsync(x => x.Id == id);
 
-        public async Task<List<Author>> GetAll() => await _context.Author.ToListAsync();
+        public async Task<List<Author>> GetAllAsync() => await _context.Author.ToListAsync();
 
-        public async Task<List<Author>> GetAll(int amount) => await _context.Author.Take(amount).ToListAsync();
+        public async Task<List<Author>> GetAllAsync(int amount) => await _context.Author.Take(amount).ToListAsync();
 
-        public async Task<Author> GetAuthor(string name, string patronymic, string surname) => await _context.Author.FirstOrDefaultAsync(x => x.Name == name && x.Patronymic == patronymic && x.Surname == surname);
+        public async Task<Author> GetAuthorAsync(string name, string patronymic, string surname) => await _context.Author.FirstOrDefaultAsync(x => x.Name == name && x.Patronymic == patronymic && x.Surname == surname);
 
-        public async Task<Author> GetAuthor(string fullname) => await _context.Author.FirstOrDefaultAsync(x => (x.Name + " " + x.Patronymic + " " + x.Surname) == fullname);
+        public async Task<Author> GetAuthorAsync(string fullname) => await _context.Author.FirstOrDefaultAsync(x => (x.Name + " " + x.Patronymic + " " + x.Surname) == fullname);
     }
 }

@@ -36,13 +36,13 @@ h1.title {
     margin: 0;
 }
 
-p.gray {
+p.desc {
     color: gray;
 }
 
-p.description {
+b {
     color: gray;
-    font-size: 14px;
+    font-weight: normal;
 }
 
 div.inline {

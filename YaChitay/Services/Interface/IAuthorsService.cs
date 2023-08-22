@@ -5,6 +5,7 @@ namespace YaChitay.Services.Interface
 {
     public interface IAuthorsService
     {
-        Task<bool> AddAuthor(AuthorDTO authorDTO);
+        Task<bool> AddAuthorAsync(AuthorRequestDto authorDTO);
+        Task<Author> GetAuthorAsync(int id);
     }
 }

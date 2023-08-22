@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace YaChitay.Entities.DTO
 {
     [NotMapped]
-    public class BookDTO
+    public class BookRequestDto
     {
         [Required]
         [Display(Name = "Название")]

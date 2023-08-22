@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using YaChitay.Data;
 using YaChitay.Entities.DTO;
+using YaChitay.Entities.Models;
 using YaChitay.Services.Service;
 
 namespace YaChitay.Pages.Admin.Authors
@@ -26,16 +27,18 @@ namespace YaChitay.Pages.Admin.Authors
         }
 
         [BindProperty]
-        public AuthorDTO Model { get; set; } = default!;
+        public AuthorRequestDto Author { get; set; } = default!;
         
         public async Task<IActionResult> OnPostAsync()
         {
-            if (!ModelState.IsValid || Model == null)
+          if (!ModelState.IsValid || Author == null)
             {
                 return Page();
             }
 
-            return (await _service.AddAuthor(Model)) ? RedirectToPage("./Index") : Page();
+            await _service.AddAuthorAsync(Author);
+
+            return RedirectToPage("./Index");
         }
     }
 }

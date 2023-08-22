@@ -27,10 +27,6 @@ namespace YaChitay.Pages
             }
 
             Book = await _service.GetBookAsync((int)id);
-            //Book = await _context.Book.FindAsync(id);
-            //Book = await _context.Book.Include(x => x.Genres)
-            //    .Include(x => x.Author)
-            //    .FirstOrDefaultAsync(x => x.Id == id);
 
             if (Book is null || Book.IsDeleted)
             {

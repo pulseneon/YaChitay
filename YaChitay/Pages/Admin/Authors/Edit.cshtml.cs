@@ -21,7 +21,7 @@ namespace YaChitay.Pages.Admin.Authors
         }
 
         [BindProperty]
-        public Author AuthorModel { get; set; } = default!;
+        public Author Author { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -30,12 +30,12 @@ namespace YaChitay.Pages.Admin.Authors
                 return NotFound();
             }
 
-            var authormodel =  await _context.Author.FirstOrDefaultAsync(m => m.Id == id);
-            if (authormodel == null)
+            var author =  await _context.Author.FirstOrDefaultAsync(m => m.Id == id);
+            if (author == null)
             {
                 return NotFound();
             }
-            AuthorModel = authormodel;
+            Author = author;
             return Page();
         }
 
@@ -48,7 +48,7 @@ namespace YaChitay.Pages.Admin.Authors
                 return Page();
             }
 
-            _context.Attach(AuthorModel).State = EntityState.Modified;
+            _context.Attach(Author).State = EntityState.Modified;
 
             try
             {
@@ -56,7 +56,7 @@ namespace YaChitay.Pages.Admin.Authors
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!AuthorModelExists(AuthorModel.Id))
+                if (!AuthorExists(Author.Id))
                 {
                     return NotFound();
                 }
@@ -69,7 +69,7 @@ namespace YaChitay.Pages.Admin.Authors
             return RedirectToPage("./Index");
         }
 
-        private bool AuthorModelExists(int id)
+        private bool AuthorExists(int id)
         {
           return (_context.Author?.Any(e => e.Id == id)).GetValueOrDefault();
         }

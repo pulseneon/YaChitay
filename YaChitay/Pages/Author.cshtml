@@ -1,8 +1,145 @@
 ﻿@page "{id:int?}"
 @model YaChitay.Pages.AuthorModel
+
 @{
-    var initials = @Model.Author.Name[0] + ". " + @Model.Author.Patronymic[0] + ". " + Model.Author.Surname;
-    ViewData["Title"] = @initials + " - ЯЧитаю";
+    ViewData["Title"] = @Model.Author.Initials + " - ЯЧитаю";
+
+    string GetYearName(int lastYearDigit)
+    {
+        if (lastYearDigit == '1')
+        {
+            return "год";
+        }
+        else if (lastYearDigit >= 2 && lastYearDigit <= 4)
+        {
+            return "года";
+        }
+        else
+        {
+            return "лет";
+        }
+    }
 }
 
-<h1>Автор</h1>
+<script src="https://api-maps.yandex.ru/2.1/?apikey=@Model.YandexMapsAPIKey&lang=ru_RU&load=Geolink"
+        type="text/javascript"></script>
+
+<div class="container">
+    <div class="row align-items-start">
+        <div class="col-auto bg-white rounded">
+            <img src="data:image/jpg;base64,@Model.Author.Image.Low" class="shadow rounded" width="350px" height="480px" />
+        </div>
+        <div class="col">
+            <h1 class="title">@Model.Author.Fullname</h1>    
+            @if (Model.Author.IsDead)
+            {
+                var year = Model.Author.LivedYears.ToString();
+                var yearName = GetYearName(year[year.Length - 1]);
+                <p class="desc">@Model.Author.DateOfBirth — @Model.Author.DateOfDeath (умер в возрасте @year @yearName)</p>
+            }
+            
+            @if (Model.Author.Nickname != null)
+            {
+                <div class="inline-text">
+                    <p><b>Псевдоним:</b> @Model.Author.Nickname</p>
+                </div>
+            }
+            @if (!Model.Author.IsDead)
+            {
+                var year = Model.Author.LivedYears.ToString();
+                var yearName = GetYearName(year[year.Length - 1]);
+                <p><b>Дата рождения:</b> @Model.Author.DateOfBirth (@year @yearName)</p>
+            }
+            @if (Model.Author.Birthplace != null)
+            {
+                <p><b>Место рождения:</b> <span class="ymaps-geolink">@Model.Author.Birthplace</span></p>
+            }
+            @if (Model.Author.IsDead && Model.Author.Deathplace != null)
+            {
+                <div class="inline-text">
+                    <p><b>Место смерти:</b><span class="ymaps-geolink">@Model.Author.Deathplace</span></p>
+                </div>
+            }
+            @if (Model.Author.Quote != null)
+            {
+                <p><b>Цитата: </b> @Model.Author.Quote</p>
+            }
+            <p><b>Биография:</b> @Model.Author.Description @if (Model.Author.WikiUrl != null)
+                {
+                    <a href="@Model.Author.WikiUrl">[Открыть полную биографию]</a>
+                }
+            </p>
+        </div>
+        <div class="col-3 rounded shadow">
+            <br />
+            <div class="row justify-content-center">
+                <div class="col-md-auto">
+                    <button type="button" class="btn btn-success">Добавить в любимые</button>
+                </div>
+            </div>
+            <br />
+            <div class="inline-text">
+                <p>
+                    <b>Рейтинг книг автора:</b>
+                @if (Model.BooksAverageScore > 0)
+                {
+                        @Model.BooksAverageScore
+                    }
+                    else
+                    {
+                        var books_rating_error = "книги автора еще не были оценены";
+                        @books_rating_error
+                    }
+            </div>
+            <p>
+                <b>Рейтинг автора:</b>
+                @if (Model.Author.AverageScore > 0)
+                {
+                    <p>@Model.Author.AverageScore</p>
+                    <p class="desc">(голосов: @Model.Author.ScoreVotes)</p>
+                }
+                else
+                {
+                    var author_rating_error = "автора еще никто не оценивал";
+                    @author_rating_error
+                }
+            </p>
+            <p>Ваша оценка: </p>
+            <div class="ratio">
+                <input type="radio" class="star-ratio" name="rt">
+                <input type="radio" class="star-ratio" name="rt">
+                <input type="radio" class="star-ratio" name="rt">
+                <input type="radio" class="star-ratio" name="rt">
+                <input type="radio" class="star-ratio" name="rt">
+            </div>
+            <br />
+        </div>
+        
+        @{
+            if (Model.Author.Books.Count < 10 && Model.Author.Books.Count > 1)
+            {
+                <h3 style="margin-bottom:8px; margin-top:8px;">Книги, написанные автором</h3>
+            }
+            else if (Model.Author.Books.Count > 1)
+            {
+                Model.Author.Books.Sort((x, y) => x.Score.CompareTo(y.Score));
+                <h3 style="margin-bottom:8px; margin-top:8px;">Популярные книги</h3>
+            }
+
+            var books = Model.Author.Books;
+
+            for(var i = 0; i < 10; i++)
+            {
+                if (i > books.Count-1) break;
+                var score = books[i].ScoreVotes != 0 ? (books[i].Score / books[i].ScoreVotes).ToString("0.00") : "нет оценки";
+
+                <div class="row rounded shadow-sm" style="margin-bottom:16px; display: table;">
+                    @{
+                        var genres = string.Join(", ", books[0].Genres.Select(x => x.Name).Take(3));
+                    }
+                    <p><a href="/Book/@books[i].Id">@books[i].Title</a> (@books[i].ReleaseDate.Year) | <b>@genres</b> | Оценка: @score</p>
+                </div>
+            }
+        }
+    </div>
+</div>

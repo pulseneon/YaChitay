@@ -19,7 +19,7 @@ namespace YaChitay.Pages.Admin.Authors
             _context = context;
         }
 
-      public Author AuthorModel { get; set; } = default!; 
+      public Author Author { get; set; } = default!; 
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -28,14 +28,14 @@ namespace YaChitay.Pages.Admin.Authors
                 return NotFound();
             }
 
-            var authormodel = await _context.Author.FirstOrDefaultAsync(m => m.Id == id);
-            if (authormodel == null)
+            var author = await _context.Author.FirstOrDefaultAsync(m => m.Id == id);
+            if (author == null)
             {
                 return NotFound();
             }
             else 
             {
-                AuthorModel = authormodel;
+                Author = author;
             }
             return Page();
         }

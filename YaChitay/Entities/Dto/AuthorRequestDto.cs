@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace YaChitay.Entities.DTO
 {
     [NotMapped]
-    public class AuthorDTO
+    public class AuthorRequestDto
     {
         [Required]
         [Display(Name = "Имя")]
@@ -15,16 +15,19 @@ namespace YaChitay.Entities.DTO
         [Required]
         [Display(Name = "Отчество")]
         public string Patronymic { get; set; }
-        [Required]
         [Display(Name = "Псевдоним")]
         public string? Nickname { get; set; }
         [Display(Name = "Фотография")]
         public IFormFile? Photo { get; set; }
         [Display(Name = "Место рождения")]
         public string? Birthplace { get; set; }
+        [Display(Name = "Место смерти")]
+        public string? Deathplace { get; set; }
         [Required]
         [Display(Name = "Краткая биография")]
         public string Description { get; set; }
+        [Display(Name = "Цитата")]
+        public string? Quote { get; set; }
         [Required]
         [Display(Name = "Мертв?")]
         public bool IsDead { get; set; }
@@ -35,5 +38,7 @@ namespace YaChitay.Entities.DTO
         [Display(Name = "Дата смерти")]
         [DataType(DataType.Date)]
         public DateTime? DateOfDeath { get; set; }
+        [Display(Name = "Википедия"), Url]
+        public string? WikiUrl { get; set; } 
     }
 }

@@ -7,68 +7,93 @@
 
 <h1>Edit</h1>
 
-<h4>AuthorModel</h4>
+<h4>Author</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="AuthorModel.Id" />
             <div class="form-group">
-                <label asp-for="AuthorModel.Name" class="control-label"></label>
-                <input asp-for="AuthorModel.Name" class="form-control" />
-                <span asp-validation-for="AuthorModel.Name" class="text-danger"></span>
+                <label asp-for="Author.Name" class="control-label"></label>
+                <input asp-for="Author.Name" class="form-control" />
+                <span asp-validation-for="Author.Name" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="AuthorModel.Surname" class="control-label"></label>
-                <input asp-for="AuthorModel.Surname" class="form-control" />
-                <span asp-validation-for="AuthorModel.Surname" class="text-danger"></span>
+                <label asp-for="Author.Surname" class="control-label"></label>
+                <input asp-for="Author.Surname" class="form-control" />
+                <span asp-validation-for="Author.Surname" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="AuthorModel.Patronymic" class="control-label"></label>
-                <input asp-for="AuthorModel.Patronymic" class="form-control" />
-                <span asp-validation-for="AuthorModel.Patronymic" class="text-danger"></span>
+                <label asp-for="Author.Patronymic" class="control-label"></label>
+                <input asp-for="Author.Patronymic" class="form-control" />
+                <span asp-validation-for="Author.Patronymic" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="AuthorModel.Nickname" class="control-label"></label>
-                <input asp-for="AuthorModel.Nickname" class="form-control" />
-                <span asp-validation-for="AuthorModel.Nickname" class="text-danger"></span>
+                <label asp-for="Author.Nickname" class="control-label"></label>
+                <input asp-for="Author.Nickname" class="form-control" />
+                <span asp-validation-for="Author.Nickname" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="AuthorModel.Birthplace" class="control-label"></label>
-                <input asp-for="AuthorModel.Birthplace" class="form-control" />
-                <span asp-validation-for="AuthorModel.Birthplace" class="text-danger"></span>
+                <label asp-for="Author.Birthplace" class="control-label"></label>
+                <input asp-for="Author.Birthplace" class="form-control" />
+                <span asp-validation-for="Author.Birthplace" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="AuthorModel.Description" class="control-label"></label>
-                <input asp-for="AuthorModel.Description" class="form-control" />
-                <span asp-validation-for="AuthorModel.Description" class="text-danger"></span>
+                <label asp-for="Author.Deathplace" class="control-label"></label>
+                <input asp-for="Author.Deathplace" class="form-control" />
+                <span asp-validation-for="Author.Deathplace" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Author.Description" class="control-label"></label>
+                <input asp-for="Author.Description" class="form-control" />
+                <span asp-validation-for="Author.Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Author.Quote" class="control-label"></label>
+                <input asp-for="Author.Quote" class="form-control" />
+                <span asp-validation-for="Author.Quote" class="text-danger"></span>
             </div>
             <div class="form-group form-check">
                 <label class="form-check-label">
-                    <input class="form-check-input" asp-for="AuthorModel.IsDead" /> @Html.DisplayNameFor(model => model.AuthorModel.IsDead)
+                    <input class="form-check-input" asp-for="Author.IsDead" /> @Html.DisplayNameFor(model => model.Author.IsDead)
                 </label>
             </div>
             <div class="form-group form-check">
                 <label class="form-check-label">
-                    <input class="form-check-input" asp-for="AuthorModel.IsDeleted" /> @Html.DisplayNameFor(model => model.AuthorModel.IsDeleted)
+                    <input class="form-check-input" asp-for="Author.IsDeleted" /> @Html.DisplayNameFor(model => model.Author.IsDeleted)
                 </label>
             </div>
             <div class="form-group">
-                <label asp-for="AuthorModel.DateOfBirth" class="control-label"></label>
-                <input asp-for="AuthorModel.DateOfBirth" class="form-control" />
-                <span asp-validation-for="AuthorModel.DateOfBirth" class="text-danger"></span>
+                <label asp-for="Author.DateOfBirth" class="control-label"></label>
+                <input asp-for="Author.DateOfBirth" class="form-control" />
+                <span asp-validation-for="Author.DateOfBirth" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="AuthorModel.DateOfDeath" class="control-label"></label>
-                <input asp-for="AuthorModel.DateOfDeath" class="form-control" />
-                <span asp-validation-for="AuthorModel.DateOfDeath" class="text-danger"></span>
+                <label asp-for="Author.DateOfDeath" class="control-label"></label>
+                <input asp-for="Author.DateOfDeath" class="form-control" />
+                <span asp-validation-for="Author.DateOfDeath" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="AuthorModel.Created" class="control-label"></label>
-                <input asp-for="AuthorModel.Created" class="form-control" />
-                <span asp-validation-for="AuthorModel.Created" class="text-danger"></span>
+                <label asp-for="Author.Created" class="control-label"></label>
+                <input asp-for="Author.Created" class="form-control" />
+                <span asp-validation-for="Author.Created" class="text-danger"></span>
             </div>
+            <div class="form-group">
+                <label asp-for="Author.Score" class="control-label"></label>
+                <input asp-for="Author.Score" class="form-control" />
+                <span asp-validation-for="Author.Score" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Author.ScoreVotes" class="control-label"></label>
+                <input asp-for="Author.ScoreVotes" class="form-control" />
+                <span asp-validation-for="Author.ScoreVotes" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Author.WikiUrl" class="control-label"></label>
+                <input asp-for="Author.WikiUrl" class="form-control" />
+                <span asp-validation-for="Author.WikiUrl" class="text-danger"></span>
+            </div>
+            <input type="hidden" asp-for="Author.Id" />
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>

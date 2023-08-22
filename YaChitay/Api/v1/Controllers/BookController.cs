@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using YaChitay.Services.Service;
 using AutoMapper;
-using YaChitay.Entities.Response;
 using YaChitay.Entities.DTO;
 using YaChitay.Entities.Dto;
 
@@ -34,7 +33,7 @@ namespace YaChitay.Api.v1.Controllers
                 return NotFound();
             }
 
-            var response = _mapper.Map<BookResponse>(book);
+            var response = _mapper.Map<BookResponseDto>(book);
 
             return Ok(response);
         }
@@ -55,23 +54,6 @@ namespace YaChitay.Api.v1.Controllers
             _logger.LogInformation($"API response returned {photo}");
 
             return Ok(photo);
-        }
-
-        // POST: api/Book/{book}
-        [HttpPost()]
-        public async Task<IActionResult> AddBook([FromBody] TestDTO book) //
-        {
-            Console.WriteLine("add book");
-            
-            if (!ModelState.IsValid || book == null)
-            {
-                return BadRequest();
-            }
-
-            //var result = await _service.AddBookAsync(book);
-
-            //return (result) ? Ok(result) : NotFound();
-            return Ok();
         }
     }
 }

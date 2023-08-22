@@ -20,7 +20,7 @@ namespace YaChitay.Pages.Admin.Books
         }
 
         [BindProperty]
-        public BookDTO Model { get; set; } = default!;
+        public BookRequestDto Model { get; set; } = default!;
 
         public async Task<IActionResult> OnPostAsync()
         {

@@ -20,7 +20,7 @@ namespace YaChitay.Pages.Admin.Authors
         }
 
         [BindProperty]
-      public Author AuthorModel { get; set; } = default!;
+      public Author Author { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -29,15 +29,15 @@ namespace YaChitay.Pages.Admin.Authors
                 return NotFound();
             }
 
-            var authormodel = await _context.Author.FirstOrDefaultAsync(m => m.Id == id);
+            var author = await _context.Author.FirstOrDefaultAsync(m => m.Id == id);
 
-            if (authormodel == null)
+            if (author == null)
             {
                 return NotFound();
             }
             else 
             {
-                AuthorModel = authormodel;
+                Author = author;
             }
             return Page();
         }
@@ -48,12 +48,12 @@ namespace YaChitay.Pages.Admin.Authors
             {
                 return NotFound();
             }
-            var authormodel = await _context.Author.FindAsync(id);
+            var author = await _context.Author.FindAsync(id);
 
-            if (authormodel != null)
+            if (author != null)
             {
-                AuthorModel = authormodel;
-                _context.Author.Remove(AuthorModel);
+                Author = author;
+                _context.Author.Remove(Author);
                 await _context.SaveChangesAsync();
             }
 

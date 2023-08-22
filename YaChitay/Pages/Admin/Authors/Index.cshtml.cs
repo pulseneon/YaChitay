@@ -19,13 +19,13 @@ namespace YaChitay.Pages.Admin.Authors
             _context = context;
         }
 
-        public IList<Author> AuthorModel { get;set; } = default!;
+        public IList<Author> Author { get;set; } = default!;
 
         public async Task OnGetAsync()
         {
             if (_context.Author != null)
             {
-                AuthorModel = await _context.Author.ToListAsync();
+                Author = await _context.Author.ToListAsync();
             }
         }
     }

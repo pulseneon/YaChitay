@@ -19,7 +19,7 @@
                         foreach(var author in Model.Book.Authors)
                         {
                             var fullname = $"{author.Name} {author.Patronymic} {author.Surname}";
-                            <a href="#">
+                            <a href="/Author/@author.Id">
                                 @fullname
                             </a>
                         }

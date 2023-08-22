@@ -14,40 +14,58 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.AuthorModel[0].Name)
+                @Html.DisplayNameFor(model => model.Author[0].Name)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.AuthorModel[0].Surname)
+                @Html.DisplayNameFor(model => model.Author[0].Surname)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.AuthorModel[0].Patronymic)
+                @Html.DisplayNameFor(model => model.Author[0].Patronymic)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.AuthorModel[0].Nickname)
+                @Html.DisplayNameFor(model => model.Author[0].Nickname)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.AuthorModel[0].Birthplace)
+                @Html.DisplayNameFor(model => model.Author[0].Birthplace)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.AuthorModel[0].Description)
+                @Html.DisplayNameFor(model => model.Author[0].Deathplace)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.AuthorModel[0].IsDead)
+                @Html.DisplayNameFor(model => model.Author[0].Description)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.AuthorModel[0].DateOfBirth)
+                @Html.DisplayNameFor(model => model.Author[0].Quote)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.AuthorModel[0].DateOfDeath)
+                @Html.DisplayNameFor(model => model.Author[0].IsDead)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.AuthorModel[0].Created)
+                @Html.DisplayNameFor(model => model.Author[0].IsDeleted)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Author[0].DateOfBirth)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Author[0].DateOfDeath)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Author[0].Created)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Author[0].Score)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Author[0].ScoreVotes)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Author[0].WikiUrl)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.AuthorModel) {
+@foreach (var item in Model.Author) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
@@ -65,10 +83,19 @@
                 @Html.DisplayFor(modelItem => item.Birthplace)
             </td>
             <td>
+                @Html.DisplayFor(modelItem => item.Deathplace)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
             <td>
+                @Html.DisplayFor(modelItem => item.Quote)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.IsDead)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsDeleted)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.DateOfBirth)
@@ -78,6 +105,15 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Created)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Score)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ScoreVotes)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.WikiUrl)
             </td>
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |

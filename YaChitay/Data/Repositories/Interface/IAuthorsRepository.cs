@@ -5,11 +5,11 @@ namespace YaChitay.Data.Repositories.Interface
 {
     public interface IAuthorsRepository
     {
-        Task<Author> GetAuthor(int id);
-        Task<Author> GetAuthor(string name, string patronymic, string surname);
-        Task<Author> GetAuthor(string fullname);
-        Task<List<Author>> GetAll();
-        Task<List<Author>> GetAll(int amount);
-        Task<bool> AddAuthor(Author model);
+        Task<Author> GetAuthorAsync(int id);
+        Task<Author> GetAuthorAsync(string name, string patronymic, string surname);
+        Task<Author> GetAuthorAsync(string fullname);
+        Task<List<Author>> GetAllAsync();
+        Task<List<Author>> GetAllAsync(int amount);
+        Task<bool> AddAuthorAsync(Author model);
     }
 }
