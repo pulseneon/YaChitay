@@ -12,12 +12,13 @@ namespace YaChitay.Entities.Models
 
         public BookImage(IFormFile imageFile)
         {
+            var originalBitmap = ImageResizerUtility.ResizeIFormFile(imageFile, 600, 900);
             var thumbnailBitmap = ImageResizerUtility.ResizeIFormFile(imageFile, 150, 200);
             var lowBitmap = ImageResizerUtility.ResizeIFormFile(imageFile, 450, 580);
 
             Thumbnail = ImageConverterUtility.ImageToBase64String(thumbnailBitmap);
             Low = ImageConverterUtility.ImageToBase64String(lowBitmap);
-            Original = ImageConverterUtility.ImageToBase64String(imageFile);
+            Original = ImageConverterUtility.ImageToBase64String(originalBitmap);
         } 
     }
 }

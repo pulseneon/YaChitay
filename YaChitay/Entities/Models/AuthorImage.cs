@@ -12,12 +12,13 @@ namespace YaChitay.Entities.Models
 
         public AuthorImage(IFormFile imageFile)
         {
+            var originalBitmap = ImageResizerUtility.ResizeIFormFile(imageFile, 400, 700);
             var thumbnailBitmap = ImageResizerUtility.ResizeIFormFile(imageFile, 150, 200);
-            var lowBitmap = ImageResizerUtility.ResizeIFormFile(imageFile, 450, 580);
+            var lowBitmap = ImageResizerUtility.ResizeIFormFile(imageFile, 350, 480);
 
             Thumbnail = ImageConverterUtility.ImageToBase64String(thumbnailBitmap);
             Low = ImageConverterUtility.ImageToBase64String(lowBitmap);
-            Original = ImageConverterUtility.ImageToBase64String(imageFile);
+            Original = ImageConverterUtility.ImageToBase64String(originalBitmap);
         }
     }
 }
