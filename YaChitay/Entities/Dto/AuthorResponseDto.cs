@@ -7,6 +7,7 @@ namespace YaChitay.Entities.Dto
     [NotMapped]
     public class AuthorResponseDto
     {
+        public int Id { get; set; }
         public string Fullname { get; set; }
         public string Initials { get; set; }
         public string? Nickname { get; set; }

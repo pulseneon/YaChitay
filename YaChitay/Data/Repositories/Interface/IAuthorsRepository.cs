@@ -1,4 +1,5 @@
 ﻿using YaChitay.Entities.DTO;
+using YaChitay.Entities.Enums;
 using YaChitay.Entities.Models;
 
 namespace YaChitay.Data.Repositories.Interface
@@ -11,5 +12,7 @@ namespace YaChitay.Data.Repositories.Interface
         Task<List<Author>> GetAllAsync();
         Task<List<Author>> GetAllAsync(int amount);
         Task<bool> AddAuthorAsync(Author model);
+        Task<List<Author>> GetAuthorPageAsync(int page);
+        Task<int> GetAuthorsLastPageNumAsync();
     }
 }

@@ -1,8 +1,11 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 using YaChitay.Data;
 using YaChitay.Data.Repositories.Interface;
+using YaChitay.Data.Repositories.QueryObjects;
 using YaChitay.Entities.DTO;
+using YaChitay.Entities.Enums;
 using YaChitay.Entities.Models;
 
 namespace YaChitay.Entities.Repository
@@ -11,11 +14,13 @@ namespace YaChitay.Entities.Repository
     {
         private readonly ApplicationContext _context;
         private readonly IMapper _mapper;
+        private readonly int pageSize;
 
         public AuthorsRepository(ApplicationContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
+            pageSize = 10;
         }
 
         public async Task<bool> AddAuthorAsync(Author model)
@@ -46,5 +51,17 @@ namespace YaChitay.Entities.Repository
         public async Task<Author> GetAuthorAsync(string name, string patronymic, string surname) => await _context.Author.FirstOrDefaultAsync(x => x.Name == name && x.Patronymic == patronymic && x.Surname == surname);
 
         public async Task<Author> GetAuthorAsync(string fullname) => await _context.Author.FirstOrDefaultAsync(x => (x.Name + " " + x.Patronymic + " " + x.Surname) == fullname);
+
+        public async Task<List<Author>> GetAuthorPageAsync(int page)
+        {
+            return await _context.Author.AsNoTracking().Where(x => x.IsDeleted == false).OrderByDescending(x => (x.Score != 0) ? x.Score/x.ScoreVotes : 0).Page(page, pageSize).ToListAsync();
+        }
+
+        public async Task<int> GetAuthorsLastPageNumAsync()
+        {
+            var count = _context.Author.AsNoTracking().Where(x => x.IsDeleted == false).OrderByDescending(x => (x.Score != 0) ? x.Score / x.ScoreVotes : 0).Count();
+            Console.WriteLine($"{count} / {pageSize}");
+            return count / pageSize;
+        }
     }
 }

@@ -7,5 +7,7 @@ namespace YaChitay.Services.Interface
     {
         Task<bool> AddAuthorAsync(AuthorRequestDto authorDTO);
         Task<Author> GetAuthorAsync(int id);
+        Task<List<Author>> GetAuthorsAsync(int limit);
+        Task<int> GetAuthorsLastPageNumAsync();
     }
 }

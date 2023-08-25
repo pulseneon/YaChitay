@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using YaChitay.Data.Repositories.Interface;
 using YaChitay.Entities.DTO;
+using YaChitay.Entities.Enums;
 using YaChitay.Entities.Models;
 using YaChitay.Services.Interface;
 
@@ -38,6 +39,21 @@ namespace YaChitay.Services.Service
         {
             var author = await _repository.GetAuthorAsync(id);
             return author;
+        }
+
+        public async Task<List<Author>> GetAuthorsAsync(int limit)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<int> GetAuthorsLastPageNumAsync()
+        {
+            return await _repository.GetAuthorsLastPageNumAsync();
+        }
+
+        public async Task<List<Author>> GetAuthorsPageAsync(int page)
+        {
+            return await _repository.GetAuthorPageAsync(page);   
         }
     }
 }

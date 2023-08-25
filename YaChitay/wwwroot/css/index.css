@@ -20,14 +20,3 @@ img.book-img {
 img.book-img:hover {
   transform: scale(1.05);
 }
-
-a.sidebar {
-    color: gray;
-    font-weight: bold;
-    text-decoration: none;
-    margin-bottom:8px;
-}
-
-    a.sidebar:hover {
-        color: #22a6b3;
-    }

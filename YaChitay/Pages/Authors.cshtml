@@ -1,5 +1,48 @@
 ﻿@page
 @model YaChitay.Pages.AuthorsModel
 @{
+    ViewData["Title"] = "Авторы - ЯЧитаю";
 }
 
+<div class="container">
+    <div class="row">
+        <div class="col-md-10">
+            <h2>Авторы</h2>
+            @foreach (var author in Model.Authors)
+            {
+                <div class="row shadow-sm rounded" style="margin-bottom: 16px;">
+                    @{
+                        var desc = (author.Description.Length > 315) ? author.Description.Substring(0, 315) + "..." : author.Description;
+                    }
+                    <div class="col-2">
+                        <img height="150" width="100" style="margin-bottom:4px;" />
+                    </div>
+                    <div class="col-10">
+                        <h4><a href="/Author/@author.Id">@author.Fullname</a></h4>
+                        <p class="desc">@author.Description</p>
+                    </div>
+                </div>
+            }
+
+            <div style="display: flex;
+    justify-content: center;
+    align-items: center;">
+            <div>
+                @{
+                    var prev_num = (@Model.PageNum - 1 > 0) ? @Model.PageNum - 1 : 1;
+                    var next_num = @Model.PageNum + 1;
+                }
+
+                <a href="/Authors?page=1" class="btn btn-light">&lt;&lt;</a>
+                <a href="/Authors?page=@prev_num" class="btn btn-light">&lt;</a>
+                <a class="btn btn-primary">@Model.PageNum</a>
+                <a href="/Authors?page=@next_num" class="btn btn-light">&gt;</a>
+                <a href="/Authors?page=@Model.LastPageNum" class="btn btn-light">&gt;&gt;</a>
+            </div>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <partial name="Partials/_RightColumnMenu" />
+        </div>
+    </div>
+</div>

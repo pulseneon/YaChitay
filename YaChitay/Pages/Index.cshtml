@@ -1,7 +1,7 @@
 ﻿@page "{id:int?}"
 @model IndexModel
 @{
-    ViewData["Title"] = "ЯЧитаю";
+    ViewData["Title"] = "Главная - ЯЧитаю";
 }
 
 <head>
@@ -62,12 +62,7 @@
             </div>
         </div>
         <div class="col-md-2">
-            <div class="border" style="position:fixed;padding:56px;">
-                <p><a class="sidebar" href="#">Профиль</a></p>
-                <p><a class="sidebar" href="#">Книги</a></p>
-                <p><a class="sidebar" href="#">Авторы</a></p>
-                <p><a class="sidebar" href="#">Жанры</a></p>
-            </div>
+            <partial name="Partials/_RightColumnMenu"/>
         </div>
     </div>
 </div>
