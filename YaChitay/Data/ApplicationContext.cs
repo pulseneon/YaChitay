@@ -10,11 +10,6 @@ namespace YaChitay.Data
 {
     public class ApplicationContext : DbContext
     {
-        public ApplicationContext (DbContextOptions<ApplicationContext> options)
-            : base(options)
-        {
-        }
-
         public DbSet<Book> Book { get; set; } = default!;
         public DbSet<Author> Author { get; set; } = default!;
         public DbSet<Genre>? Genre { get; set; }
@@ -22,5 +17,15 @@ namespace YaChitay.Data
         public DbSet<BookImage> BookImage { get; set; } = default!;
         public DbSet<AuthorImage> AuthorImage { get; set; } = default!;
 
+        public ApplicationContext (DbContextOptions<ApplicationContext> options)
+            : base(options)
+        {
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Book>().HasQueryFilter(x => !x.IsDeleted);
+            modelBuilder.Entity<Author>().HasQueryFilter(x => !x.IsDeleted);
+        }
     }
 }
