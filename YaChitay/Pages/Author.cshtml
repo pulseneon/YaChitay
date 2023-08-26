@@ -116,11 +116,11 @@
         </div>
         
         @{
-            if (Model.Author.Books.Count < 10 && Model.Author.Books.Count > 1)
+            if (Model.Author.Books.Count <= 10 && Model.Author.Books.Count >= 1)
             {
                 <h3 style="margin-bottom:8px; margin-top:8px;">Книги, написанные автором</h3>
             }
-            else if (Model.Author.Books.Count > 1)
+            else if (Model.Author.Books.Count > 10)
             {
                 Model.Author.Books.Sort((x, y) => x.Score.CompareTo(y.Score));
                 <h3 style="margin-bottom:8px; margin-top:8px;">Популярные книги</h3>

@@ -12,32 +12,24 @@
         </div>
         <div class="col">
             <h1 class="title">@Model.Book.Title</h1>
-            <p class="description">Прочитали 135 пользователей</p>
-            <div class="inline-text">
-                <p class="gray">Автор:</p> <p>
-                    @{
-                        foreach(var author in Model.Book.Authors)
-                        {
-                            var fullname = $"{author.Name} {author.Patronymic} {author.Surname}";
-                            <a href="/Author/@author.Id">
-                                @fullname
-                            </a>
-                        }
+            <p class="desc">Прочитали 135 пользователей</p>
+            <p>
+                <b>Автор:</b>
+                @{
+                    foreach (var author in Model.Book.Authors)
+                    {
+                        var fullname = $"{author.Name} {author.Patronymic} {author.Surname}";
+                        <a href="/Author/@author.Id">
+                            @fullname
+                        </a>
+                    }
                 }
-                </p>
-            </div>
+            </p>
+            <p><b>Объем:</b>@Model.Book.NumberOfPages страниц</p>
+            <p><b>Жанры:</b> @string.Join(", ", Model.Book.Genres.Select(x => x.Name))</p>
+            <p><b>Год написания:</b> @Model.Book.ReleaseDate.Year</p>
             <div class="inline-text">
-                <p class="gray">Объем:</p> <p>@Model.Book.NumberOfPages страниц</p>
-            </div>
-            <div class="inline-text">
-                <p class="gray">Жанры:</p>
-                    @string.Join(", ", Model.Book.Genres.Select(x => x.Name))
-            </div>
-            <div class="inline-text">
-                <p class="gray">Год написания:</p> <p>@Model.Book.ReleaseDate.Year</p>
-            </div>
-            <div class="inline-text">
-                <p class="gray">Оценка:</p> @{
+                <p><b>Оценка:</b></p> @{
                     var middleScore = 0;
                     var isVoted = (Model.Book.ScoreVotes != 0);
                     if (isVoted)
@@ -52,8 +44,8 @@
                     }
                 }
             </div>
-            <p class="gray">Описание книги:</p>
-            <p class="description">@Model.Book.Description</p>
+            <p><b>Описание книги:</b></p>
+            <p class="desc">@Model.Book.Description</p>
         </div>
         <div class="col shadow bg-white rounded">
             <br />
