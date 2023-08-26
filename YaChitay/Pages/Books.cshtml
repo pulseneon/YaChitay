@@ -1,7 +1,7 @@
 ﻿@page
-@model YaChitay.Pages.AuthorsModel
+@model YaChitay.Pages.BooksModel
 @{
-    ViewData["Title"] = "Авторы - ЯЧитаю";
+    ViewData["Title"] = "Книги - ЯЧитаю";
 }
 
 <style>
@@ -10,25 +10,26 @@
         margin-right: 10px;
         border-radius: 4%;
     }
-    a{
-        text-decoration:none;
+
+    a {
+        text-decoration: none;
     }
 </style>
 
 <div class="container">
     <div class="row">
         <div class="col-md-10">
-            <h2>Авторы</h2>
-            @foreach (var author in Model.Authors)
+            <h2>Книги</h2>
+            @foreach (var book in Model.Books)
             {
                 <div class="row shadow-sm rounded" style="margin-bottom: 16px;">
                     @{
-                        var desc = (author.Description.Length > 315) ? author.Description.Substring(0, 315) + "..." : author.Description;
+                        var desc = (book.Description.Length > 315) ? book.Description.Substring(0, 315) + "..." : book.Description;
                     }
                     <div>
-                        <img src="data:image/jpg;base64,@author.Image.Low" class="left-img" height="150" width="100" style="margin-bottom:8px;" />
-                        <h4><a href="/Author/@author.Id">@author.Fullname</a></h4>
-                        <p class="desc">@author.Description</p>
+                        <img src="data:image/jpg;base64,@book.Image.Low" class="left-img" height="150" width="100" style="margin-bottom:8px;" />
+                        <h4><a href="/Book/@book.Id">@book.Title</a></h4>
+                        <p class="desc">@book.Description</p>
                     </div>
                 </div>
             }

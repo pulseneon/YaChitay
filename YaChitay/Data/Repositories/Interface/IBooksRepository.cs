@@ -10,5 +10,8 @@ namespace YaChitay.Data.Repositories.Interface
         Task<List<Book>> GetNewBooksAsync(int amount);
         Task<List<Book>> GetPopularBooksAsync(int amount);
         Task<List<Book>> GetSelectionBooksAsync(int amount);
+
+        Task<List<Book>> GetBooksPageAsync(int page);
+        Task<int> GetBooksLastPageNumAsync();
     }
 }

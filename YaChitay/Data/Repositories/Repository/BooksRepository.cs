@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using System.Drawing.Printing;
 using YaChitay.Data.Repositories.Interface;
+using YaChitay.Data.Repositories.QueryObjects;
 using YaChitay.Entities.Models;
 
 namespace YaChitay.Data.Repositories.Repository
@@ -9,11 +11,13 @@ namespace YaChitay.Data.Repositories.Repository
     {
         private readonly ApplicationContext _context;
         private readonly IMapper _mapper;
+        private readonly int pageSize;
 
         public BooksRepository(ApplicationContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
+            pageSize = 10;
         }
 
         public async Task<bool> AddBookAsync(Book model)
@@ -34,8 +38,12 @@ namespace YaChitay.Data.Repositories.Repository
 
         public async Task<Book> GetBookAsync(int id) => await _context.Book.Include(x => x.Genres)
             .Include(x => x.Authors)
-            .Include(x => x.Image)
-            .FirstOrDefaultAsync(x => x.Id == id);
+        .Include(x => x.Image)
+        .FirstOrDefaultAsync(x => x.Id == id);
+
+        public async Task<int> GetBooksLastPageNumAsync() => _context.Book.AsNoTracking().OrderByDescending(x => (x.Score != 0) ? x.Score / x.ScoreVotes : 0).Count() / pageSize;
+
+        public async Task<List<Book>> GetBooksPageAsync(int page) => await _context.Book.AsNoTracking().Include(x => x.Image).OrderByDescending(x => (x.Score != 0) ? x.Score / x.ScoreVotes : 0).Page(page, pageSize).ToListAsync();
 
         public async Task<List<Book>> GetNewBooksAsync(int amount) => await _context.Book.OrderByDescending(x => x.ReleaseDate).Include(x => x.Genres)
             .Include(x => x.Authors)

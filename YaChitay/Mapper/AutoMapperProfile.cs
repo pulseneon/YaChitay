@@ -21,8 +21,8 @@ namespace YaChitay.Mapper
             CreateMap<AuthorRequestDto, Author>();
 
             CreateMap<Author, AuthorResponseDto>()
-                .ForMember(dest => dest.Fullname, opt => opt.MapFrom(src => $"{src.Name} {src.Surname} {src.Patronymic}"))
-                .ForMember(dest => dest.Initials, opt => opt.MapFrom(src => $"{src.Name[0]}. {src.Surname[0]}. {src.Patronymic}"))
+                .ForMember(dest => dest.Fullname, opt => opt.MapFrom(src => $"{src.Name} {src.Patronymic} {src.Surname}"))
+                .ForMember(dest => dest.Initials, opt => opt.MapFrom(src => $"{src.Name[0]}. {src.Patronymic[0]}. {src.Surname}"))
                 .ForMember(dest => dest.DateOfBirth, opt => opt.MapFrom(src => src.DateOfBirth.ToShortDateString().ToString()))
                 .ForMember(dest => dest.DateOfDeath, opt => opt.MapFrom(src => src.DateOfDeath.Value.ToShortDateString().ToString()))
                 .ForMember(dest => dest.LivedYears, opt => opt.MapFrom(src => (src.IsDead) ? (src.DateOfDeath.Value.Year - src.DateOfBirth.Year): (DateTime.Now.Year - src.DateOfBirth.Year)))

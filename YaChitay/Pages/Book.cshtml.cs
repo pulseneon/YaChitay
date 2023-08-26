@@ -23,14 +23,14 @@ namespace YaChitay.Pages
         {
             if (id is null)
             {
-                return RedirectToPage("./Index");
+                return RedirectToPage("./Books");
             }
 
             Book = await _service.GetBookAsync((int)id);
 
             if (Book is null || Book.IsDeleted)
             {
-                return RedirectToPage("./Error");
+                return RedirectToPage("./Books");
             }
 
             return Page();

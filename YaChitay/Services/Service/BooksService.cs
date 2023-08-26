@@ -57,7 +57,14 @@ namespace YaChitay.Services.Service
             return await _repository.GetAllBooksAsync();
         }
 
+        public async Task<int> GetBooksLastPageNumAsync() => await _repository.GetBooksLastPageNumAsync();
+
         public async Task<Book> GetBookAsync(int id) => await _repository.GetBookAsync(id);
+
+        public async Task<List<Book>> GetBooksPageAsync(int page)
+        {
+            return await _repository.GetBooksPageAsync(page);
+        }
 
         public async Task<List<Book>> GetNewBooksAsync(int amount)
         {

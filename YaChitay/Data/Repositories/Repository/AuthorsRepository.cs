@@ -52,16 +52,8 @@ namespace YaChitay.Entities.Repository
 
         public async Task<Author> GetAuthorAsync(string fullname) => await _context.Author.FirstOrDefaultAsync(x => (x.Name + " " + x.Patronymic + " " + x.Surname) == fullname);
 
-        public async Task<List<Author>> GetAuthorPageAsync(int page)
-        {
-            return await _context.Author.AsNoTracking().Where(x => x.IsDeleted == false).OrderByDescending(x => (x.Score != 0) ? x.Score/x.ScoreVotes : 0).Page(page, pageSize).ToListAsync();
-        }
+        public async Task<List<Author>> GetAuthorPageAsync(int page) => await _context.Author.AsNoTracking().Where(x => x.IsDeleted == false).Include(x => x.Image).OrderByDescending(x => (x.Score != 0) ? x.Score/x.ScoreVotes : 0).Page(page, pageSize).ToListAsync();
 
-        public async Task<int> GetAuthorsLastPageNumAsync()
-        {
-            var count = _context.Author.AsNoTracking().Where(x => x.IsDeleted == false).OrderByDescending(x => (x.Score != 0) ? x.Score / x.ScoreVotes : 0).Count();
-            Console.WriteLine($"{count} / {pageSize}");
-            return count / pageSize;
-        }
+        public async Task<int> GetAuthorsLastPageNumAsync() => _context.Author.AsNoTracking().Where(x => x.IsDeleted == false).OrderByDescending(x => (x.Score != 0) ? x.Score / x.ScoreVotes : 0).Count() / pageSize;
     }
 }
