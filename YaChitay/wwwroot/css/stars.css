@@ -46,7 +46,7 @@
 
 .star-ratio:checked,
 .star-ratio:hover {
-    background: url(https://i.imgur.com/WbQwZKU.png);
+    background: url(https://i.imgur.com/WbQwZKU.png); 
     background-size: 2em 2em;
     background-repeat: repeat-x;
 }
